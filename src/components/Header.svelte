@@ -13,12 +13,12 @@
 	width: 100%;
 	left: 0;
   top: 70vh;
-  transform: translateZ(1.4);
 }
 
 .cloud {
-	position: fixed;
+	position: absolute;
 	width: 30rem;
+  z-index: 0;
 }
 
 .cloud:nth-of-type(1) {

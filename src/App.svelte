@@ -18,6 +18,7 @@ main {
 	background-size: cover;
 	background-position: center;
 	margin-top: 35vh;
+	z-index: 1;
 }
 </style>
 
