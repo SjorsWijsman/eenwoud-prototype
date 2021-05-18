@@ -1,28 +1,31 @@
 <script>
+import Header from './components/Header.svelte';
+import AudioPlayer from './components/AudioPlayer.svelte';
 </script>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+header {
+	background: radial-gradient(ellipse at bottom, var(--color-sky-light) -50%, var(--color-sky-dark) 150%);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	min-height: 100vh;
+}
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
+main {
+	background-image: url('../resources/images/forest-path.jpeg');
+	min-height: 150vh;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	margin-top: 35vh;
+}
 </style>
 
+<AudioPlayer/>	
+<header>
+	<Header/>
+</header>
+
 <main>
-	<h1>Hallo</h1>
+<img src="" alt="">
 </main>

@@ -29,6 +29,7 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "basicscroll": "^3.0.4",
     "sirv-cli": "^1.0.0"
   },
   "homepage": "https://github.com/SjorsWijsman/eenwoud#readme"
