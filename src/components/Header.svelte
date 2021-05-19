@@ -1,43 +1,64 @@
 <style>
-#eenwoud-logo {
+.eenwoud-logo {
 	position: absolute;
 	top: 50vh;
 	left: 50vw;
 	transform: translateX(-50%) translateY(-50%);
-	width: 25rem;
+	width: 28rem;
 }
 
-#bladerdek {
+.bladerdek {
   position: relative;
   min-width: 50rem;
 	width: 100%;
 	left: 0;
   top: 70vh;
+  z-index: 1;
+}
+
+.pointer {
+  --pointer-width: 3px;
+  width: 0px;
+  height: 20rem;
+  border-left: var(--pointer-width) solid white;
+	position: absolute;
+	top: 50vh;
+	left: 50vw;
+	transform: translate(calc(50% - var(--pointer-width)), 6rem);
+}
+
+.pointer::before {
+  position: absolute;
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  border: var(--pointer-width) solid white;
+  transform: translate(-0.5rem, calc(-0.5rem - var(--pointer-width)))
 }
 
 .cloud {
-	position: absolute;
+	position: fixed;
 	width: 30rem;
-  z-index: 0;
 }
 
 .cloud:nth-of-type(1) {
-	top: 50%;
-	animation: cloud1 200s infinite linear;
+	top: 60%;
+	animation: cloud 200s infinite linear;
 	animation-delay: -80s;
 }
 .cloud:nth-of-type(2) {
-	top: 1%;
-	animation: cloud1 250s infinite linear; 
+	top: 10%;
+	animation: cloud 250s infinite linear; 
 	animation-delay: -40s
 }
 .cloud:nth-of-type(3) {
-	top: 20%;
-	animation: cloud1 300s infinite linear;
+	top: 25%;
+	animation: cloud 300s infinite linear;
 	animation-delay: -200s;
 }
 
-@keyframes cloud1{
+@keyframes cloud {
 	0%{
 		left: -40%;
 	}
@@ -47,12 +68,11 @@
 }
 </style>
 
-<header>
-  <img id="eenwoud-logo" src="./resources/images/eenwoud-wit.png" alt="eenwoud logo wit">
-	<div>
-		<img class="cloud" src="./resources/images/cloud1.png" alt="eenwoud logo wit">
-		<img class="cloud" src="./resources/images/cloud2.png" id="cloud2" alt="eenwoud logo wit">
-		<img class="cloud" src="./resources/images/cloud3.png" alt="eenwoud logo wit">	
-	</div>
-	<img id="bladerdek" src="./resources/images/bladerdek.png" alt="eenwoud logo wit">
-</header>	
+<img class="eenwoud-logo" src="./resources/images/eenwoud-wit.png" alt="Eenwoud">
+<div>
+  <img class="cloud" src="./resources/images/cloud1.png" alt="Er hangt een blauwe lucht boven Eenwoud">
+  <img class="cloud" src="./resources/images/cloud2.png" id="cloud2" alt="De wolken komen langzaam langs">
+  <img class="cloud" src="./resources/images/cloud3.png" alt="Er is onderaan een bladerdek te zien">	
+</div>
+<div class="pointer"></div>
+<img class="bladerdek" src="./resources/images/bladerdek.png" alt="We gaan dieper het bos in">

@@ -12,14 +12,15 @@ header {
 }
 
 main {
+	position: relative;
 	background-image: url('../resources/images/forest-path.jpeg');
 	min-height: 150vh;
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
-	margin-top: 35vh;
-	z-index: 1;
+	margin-top: 20vw;
 }
+
 </style>
 
 <AudioPlayer/>	
