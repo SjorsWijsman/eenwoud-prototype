@@ -1,19 +1,10 @@
 <style>
 .eenwoud-logo {
-	position: absolute;
+	position: fixed;
 	top: 50vh;
 	left: 50vw;
 	transform: translateX(-50%) translateY(-50%);
 	width: 28rem;
-}
-
-.bladerdek {
-  position: relative;
-  min-width: 50rem;
-	width: 100%;
-	left: 0;
-  top: 70vh;
-  z-index: 1;
 }
 
 .pointer {
@@ -21,14 +12,14 @@
   width: 0px;
   height: 20rem;
   border-left: var(--pointer-width) solid white;
-	position: absolute;
+	position: fixed;
 	top: 50vh;
 	left: 50vw;
 	transform: translate(calc(50% - var(--pointer-width)), 6rem);
 }
 
 .pointer::before {
-  position: absolute;
+	position: fixed;
   content: '';
   width: 0.5rem;
   height: 0.5rem;
@@ -75,4 +66,3 @@
   <img class="cloud" src="./resources/images/cloud3.png" alt="Er is onderaan een bladerdek te zien">	
 </div>
 <div class="pointer"></div>
-<img class="bladerdek" src="./resources/images/bladerdek.png" alt="We gaan dieper het bos in">
