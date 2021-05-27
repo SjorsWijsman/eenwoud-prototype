@@ -1,22 +1,23 @@
 <script>
-import Sky from './sections/Sky.svelte';
-import Foliage from './sections/Foliage.svelte';
-import Forest from './sections/Forest.svelte';
-import ForestTransition from './sections/ForestTransition.svelte';
-import ForestWalk from './sections/ForestWalk.svelte';
+import Sky from './sections/Sky.svelte'
+import Foliage from './sections/Foliage.svelte'
+import Forest from './sections/Forest.svelte'
+import ForestTransition from './sections/ForestTransition.svelte'
+import ForestWalk from './sections/ForestWalk.svelte'
 
-import AudioPlayer from './components/AudioPlayer.svelte';
+import AudioPlayer from './components/AudioPlayer.svelte'
 
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+gsap.registerPlugin(ScrollTrigger)
 
-import { onMount } from 'svelte';
+import { onMount } from 'svelte'
 
 let walk = false
 
 onMount(() => {
 	const tl = gsap.timeline({
+		// Trigger 200px from top of Forest
 		scrollTrigger: {
 			trigger: "#forest",
 			start: "top+=200px top",
@@ -25,13 +26,16 @@ onMount(() => {
 			// markers: {startColor: "white", endColor: "red", fontSize: "12px"},
 		}
 	})
+	// Start transition to fill screen
 	tl.to("#forestTransition", {
 		x: "-100vmax", 
 		duration: 1,
 	})
+	// Swap out Forest with ForestWalk
 	tl.call(() => {
 		walk = !walk
 	})
+	// Full transitioned
 	tl.to("#forestTransition", {
 		x: "-200vmax", 
 		duration: 1,

@@ -1,3 +1,26 @@
+<script>
+import { gsap } from "gsap"
+import { onMount } from "svelte"
+
+onMount(() => {
+	const clouds = document.querySelectorAll(".cloud")
+	clouds.forEach(cloud => {
+		const cloudAnimation = gsap.fromTo(cloud, 
+			{
+				x: "-30rem"
+			}, 
+			{
+				duration: Math.random() * 100 + 50, 
+				x: "100vw", 
+				repeat: -1, 
+				ease: "linear"
+			}
+		)
+		cloudAnimation.progress(Math.random())
+	})
+})
+</script>
+
 <style>
 .eenwoud-logo {
 	position: fixed;
@@ -35,34 +58,19 @@
 
 .cloud:nth-of-type(1) {
 	top: 60%;
-	animation: cloud 200s infinite linear;
-	animation-delay: -80s;
 }
 .cloud:nth-of-type(2) {
 	top: 10%;
-	animation: cloud 250s infinite linear; 
-	animation-delay: -40s
 }
 .cloud:nth-of-type(3) {
 	top: 25%;
-	animation: cloud 300s infinite linear;
-	animation-delay: -200s;
-}
-
-@keyframes cloud {
-	0%{
-		left: -40%;
-	}
-	100%{
-		left: 100%;  
-	}
 }
 </style>
 
 <img class="eenwoud-logo" src="./resources/images/eenwoud-wit.png" alt="Eenwoud">
 <div>
   <img class="cloud" src="./resources/images/cloud1.png" alt="Er hangt een blauwe lucht boven Eenwoud">
-  <img class="cloud" src="./resources/images/cloud2.png" id="cloud2" alt="De wolken komen langzaam langs">
+  <img class="cloud" src="./resources/images/cloud2.png" alt="De wolken komen langzaam langs">
   <img class="cloud" src="./resources/images/cloud3.png" alt="Er is onderaan een bladerdek te zien">	
 </div>
 <div class="pointer"></div>
