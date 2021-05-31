@@ -4,6 +4,7 @@ img {
   top: 0;
   min-width: 100vw;
   min-height: 100vh;
+  object-fit: cover;
 }
 </style>
 

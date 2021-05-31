@@ -3,6 +3,8 @@ img {
   min-height: 150vh;
   min-width: 100vw;
 	overflow-x: hidden;
+  background-color: transparent;
+  object-fit: cover;
 }
 </style>
 

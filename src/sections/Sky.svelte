@@ -3,20 +3,45 @@ import { gsap } from "gsap"
 import { onMount } from "svelte"
 
 onMount(() => {
+	// Cloud animation
 	const clouds = document.querySelectorAll(".cloud")
 	clouds.forEach(cloud => {
-		const cloudAnimation = gsap.fromTo(cloud, 
-			{
-				x: "-30rem"
-			}, 
-			{
-				duration: Math.random() * 100 + 50, 
-				x: "100vw", 
-				repeat: -1, 
-				ease: "linear"
-			}
-		)
-		cloudAnimation.progress(Math.random())
+		const distance = Math.random()
+		const cloudAnimation = gsap.fromTo(cloud, {
+			x: "-30rem",
+			// Value between 20 - 40rem
+			width: `${((1 - distance) * 2 + 2) * 10}rem`
+		}, {
+			duration: distance * 200 + 200, 
+			x: "100vw", 
+			repeat: -1, 
+			ease: "linear"
+		})
+		cloudAnimation.progress(distance)
+	})
+
+	// Eenwoud Logo animation
+	gsap.to(".cloud", {
+		y: "+=2rem",
+		scrollTrigger: {
+			trigger: "#sky",
+			start: "top top",
+      end: window.innerHeight,
+      scrub: true,
+			// markers: {startColor: "white", endColor: "red", fontSize: "12px"},
+		}
+	})
+
+	// Eenwoud Logo animation
+	gsap.to([".eenwoud-logo", ".pointer"], {
+		y: "-=10rem",
+		scrollTrigger: {
+			trigger: "#sky",
+			start: "top top",
+      end: window.innerHeight,
+      scrub: true,
+			// markers: {startColor: "white", endColor: "red", fontSize: "12px"},
+		}
 	})
 })
 </script>
@@ -24,16 +49,17 @@ onMount(() => {
 <style>
 .eenwoud-logo {
 	position: fixed;
-	top: 50vh;
-	left: 50vw;
-	transform: translateX(-50%) translateY(-50%);
-	width: 28rem;
+	top: 45%;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 90vw;
+	max-width: 28rem;
 }
 
 .pointer {
   --pointer-width: 3px;
   width: 0px;
-  height: 20rem;
+  height: 30rem;
   border-left: var(--pointer-width) solid white;
 	position: fixed;
 	top: 50vh;

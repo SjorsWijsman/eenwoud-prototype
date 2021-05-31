@@ -20,8 +20,8 @@ onMount(() => {
 		// Trigger 200px from top of Forest
 		scrollTrigger: {
 			trigger: "#forest",
-			start: "top+=200px top",
-      end: window.innerHeight * 4,
+			start: `top+=${window.innerHeight / 2} top`,
+      end: `+=${window.innerHeight * 2}`,
       scrub: true,
 			// markers: {startColor: "white", endColor: "red", fontSize: "12px"},
 		}
@@ -31,9 +31,14 @@ onMount(() => {
 		x: "-100vmax", 
 		duration: 1,
 	})
+	// Swap out ForestWalk with Forest
+	tl.call(() => {
+		walk = false
+	})
 	// Swap out Forest with ForestWalk
 	tl.call(() => {
-		walk = !walk
+		walk = true
+
 	})
 	// Full transitioned
 	tl.to("#forestTransition", {
@@ -45,15 +50,19 @@ onMount(() => {
 
 <style>
 header {
-	position: relative;
+	position: fixed;
 	background: radial-gradient(ellipse at bottom, var(--color-sky-light) -50%, var(--color-sky-dark) 150%);
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	min-height: 100vh;
+	width: 100%;
+	left: 0;
+	top: 0;
 	z-index: 0;
 }
 
 main {
+	padding-top: 100vh;
 	position: relative;
 }
 
@@ -64,22 +73,23 @@ main > * {
 	justify-content: center;
 	height: 100vh;
 	z-index: 1;
+	background-color: rgba(0,0,0,0)
 }
 
 #foliage {
-	background-color: hsl(123, 55%, 23%);
 	align-items: center;
-	z-index: 3;
+	z-index: 2;
 }
 
 #forest {
-	min-height: 300vh;
+	min-height: 500vh;
 	background-color: hsl(34, 80%, 27%);
 }
 
 #forestWalk {
-	min-height: 300vh;
+	min-height: 500vh;
 	background-color: yellow;
+	padding-top: 300vh;
 }
 
 #forestTransition {
