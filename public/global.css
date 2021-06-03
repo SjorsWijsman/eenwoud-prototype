@@ -20,3 +20,11 @@ html {
   font-size: 1rem;
   cursor: default;
 }
+
+button {
+  cursor: pointer;
+}
+
+button img {
+  pointer-events: none;
+}

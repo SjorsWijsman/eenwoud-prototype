@@ -1,4 +1,6 @@
 <script>
+import { onMount } from 'svelte';
+
 import { walk, stories, selectedThemes } from '../store.js'
 
 const maxStoriesCount = 3
@@ -29,7 +31,19 @@ function generateWalk() {
   // Update walk store
   walk.set(newWalk)
 }
+
+onMount(() => {
+  generateWalk()
+})
 </script>
+
+<style>
+button {
+  background-color: transparent;
+  border: 1px solid white;
+  padding: 1rem;
+}
+</style>
 
 {#if $selectedThemes.length > 0}
 <button on:click={generateWalk}>Start Wandeling</button>

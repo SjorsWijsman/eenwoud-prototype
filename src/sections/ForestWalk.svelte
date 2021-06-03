@@ -21,10 +21,23 @@ section {
   max-width: 60rem;
   object-fit: cover;
 }
+
+section :global(*) {
+  color: white;
+}
+
+div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
 </style>
 
 <section>
-  <ThemeButtons></ThemeButtons>
-  <GenerateWalk></GenerateWalk>
+  <div>
+    <ThemeButtons></ThemeButtons>
+    <GenerateWalk></GenerateWalk>
+  </div>
   <AudioPlayer></AudioPlayer>
 </section>

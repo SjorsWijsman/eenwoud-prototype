@@ -89,8 +89,9 @@ main > * {
 
 #forestWalk {
 	min-height: 500vh;
-	background-color: yellow;
+	background-color: black;
 	flex-direction: column;
+	align-items: center;
 }
 
 #forestTransition {

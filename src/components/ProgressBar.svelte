@@ -1,17 +1,24 @@
 <script>
 import { walk, progress, audioIndex } from '../store.js'
+import { fly } from 'svelte/transition'
 </script>
 
 <style>
 section {
+  position: absolute;
+  bottom: 0;
   display: grid;
   grid-template-areas: 
-            "titles    button"
-            "progress button";
+    "titles    button"
+    "progress  button";
+  grid-template-columns: 1fr 4rem;
+  width: 100%;
+  padding: 2rem 2rem;
 }
 
 section div {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   justify-content: space-around;
 }
 
@@ -23,33 +30,49 @@ section div:nth-child(2) {
   grid-area: progress;
 }
 
-section :last-child {
+section :global(button) {
   grid-area: button;
+  place-items: center;
+  margin-left: 1rem;
 }
 
 p {
-  padding: 0.2rem 1rem;
-  flex-grow: 1;
-  max-width: 15rem;
+  padding: 0.5rem;
+  padding-top: 0;
   text-align: center;
+  color: white;
 }
 
-meter {
-  flex-grow: 1;
-  margin: 0 1rem;
+progress {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  border: 0;
+}
+
+progress::-webkit-progress-bar {
+  background-color: rgba(255, 255, 255, 0.3);
+  height: 0.5rem;
+  border-radius: 1rem;
+}
+
+progress::-webkit-progress-value {
+  background-color: white;
+  border-radius: 1rem;
 }
 </style>
 
 {#if $walk.length > 0}
-<section>
-  <div>
+<section transition:fly="{{ y: 200, duration: 500 }}">
+  <div style="grid-template-columns: repeat(1fr, {$walk.length});">
     {#each $walk as story}
       <p>{story.title}</p>
     {/each}
   </div>
-  <div>
+  <div style="grid-template-columns: repeat(1fr, {$walk.length});">
     {#each $walk as story, i}
-      <meter id={story.title} value={$progress + $audioIndex} min={i} max={i+1}></meter>
+      <!-- svelte-ignore component-name-lowercase -->
+      <progress id={story.title} value={-i + $progress + $audioIndex} max={1}></progress>
     {/each}
   </div>
 

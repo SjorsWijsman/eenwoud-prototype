@@ -39,14 +39,23 @@ function setProgress() {
 }
 </script>
 
+<style>
+button {
+  background-color: transparent;
+  border: none;
+  height: 2rem;
+  width: 2rem;
+}
+</style>
+
 <!-- svelte-ignore a11y-media-has-caption -->
 <audio bind:currentTime bind:duration bind:this={audioElement} preload="metadata" on:ended={nextAudio}></audio>
 <ProgressBar>
   <button on:click={playPause}>
     {#if $play}
-      Pause
+      <img src="./resources/icons/pause.svg" alt="Pause">
     {:else}
-      Play
+      <img src="./resources/icons/play.svg" alt="Play">
     {/if}
   </button>
 </ProgressBar>
