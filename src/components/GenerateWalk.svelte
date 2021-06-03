@@ -31,10 +31,6 @@ function generateWalk() {
   // Update walk store
   walk.set(newWalk)
 }
-
-onMount(() => {
-  generateWalk()
-})
 </script>
 
 <style>
