@@ -93,7 +93,7 @@ onMount(() => {
 }
 </style>
 
-<img class="eenwoud-logo" src="./resources/images/eenwoud-wit.png" alt="Eenwoud">
+<img class="eenwoud-logo" src="./resources/images/eenwoud-logo.png" alt="Eenwoud">
 <div>
   <img class="cloud" src="./resources/images/cloud1.png" alt="Er hangt een blauwe lucht boven Eenwoud">
   <img class="cloud" src="./resources/images/cloud2.png" alt="De wolken komen langzaam langs">

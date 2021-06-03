@@ -1,0 +1,41 @@
+[
+  {
+    "length": 0.30,
+    "author": "Helena Haasen",
+    "audioSrc": "audio0.mp3",
+    "title": "Mijn Eik",
+    "theme": "Nostalgie",
+    "tree": {
+      "name": "Eik",
+      "imageSrc": "eik.jpeg",
+      "age": 100,
+      "description": "Deze eik is heel speciaal voor mij omdat het bij mijn opa en oma stond",
+      "location": {"lat": "234809238409234", "long": "492374928374892"}
+    }
+  },{
+    "length": 0.25,
+    "author": "Jan Valkenburg",
+    "audioSrc": "audio1.mp3",
+    "title": "De Populaire Populier",
+    "theme": "Grappig",
+    "tree": {
+      "name": "Populier",
+      "imageSrc": "populier.jpg",
+      "age": 80,
+      "description": "In mijn dorp stond een populaire populier waar toeristen altijd gekke foto's mee maakten",
+      "location": {"lat": "738947598345", "long": "2309809835904"}
+    }
+  },  {
+    "length": 0.25,
+    "author": "Bert Baarsjes",
+    "audioSrc": "audio2.mp3",
+    "title": "De Bungelende Berg",
+    "theme": "Avontuurlijk",
+    "tree": {
+      "name": "Berk",
+      "imageSrc": "berk.jpg",
+      "age": 40,
+      "description": "Mijn kat heeft een in deze berk een gevecht gehad met een eekhoorn",
+      "location": {"lat": "34758937495", "long": "82938749237498"}
+    }
+}]

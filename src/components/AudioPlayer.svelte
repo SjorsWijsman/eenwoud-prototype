@@ -1,32 +1,54 @@
 <script>
-import { onMount } from 'svelte'
+import { onMount } from 'svelte';
+import ProgressBar from '../components/ProgressBar.svelte'
+import { walk, play, audioIndex, progress } from '../store.js'
 
-onMount(async () => {
-	const bgSounds = new Audio('./resources/sounds/nature-sounds.mp3');
-	const audioBtn = document.querySelector('.play');
-	audioBtn.addEventListener("click", (event)=> {
-		if(! bgSounds.duration > 0 && !bgSounds.paused){
-			bgSounds.play()
-		}
-	})
+let audioElement
+let duration
+let currentTime
+
+$: currentTime, setProgress()
+
+onMount(() => {
+  walk.subscribe(currentWalk => {
+    play.set(false)
+    $audioIndex = 0
+    $progress = 0
+    if (currentWalk.length > 0) {
+      audioElement.src = `./resources/audio/stories/${currentWalk[$audioIndex].audioSrc}`
+    }
+  })
 })
+
+function playPause() {
+  play.set(!$play)
+  $play ? audioElement.play() : audioElement.pause()
+}
+
+function nextAudio() {
+  $audioIndex += 1
+  $progress = 0
+  audioElement.src = `./resources/audio/stories/${$walk[$audioIndex].audioSrc}`
+  audioElement.play()
+}
+
+function setProgress() {
+  if (audioElement) {
+    progress.set(1 / duration * currentTime)
+  }
+}
 </script>
 
-<style>
-button {
-  position: fixed;
-  top: 10vh;
-  right: 5vw;
-  background: rgba(225,225,225,0.5);
-  border: 2px solid #fff;
-  border-radius: 100%;
-  padding: 2rem 1.6rem;
-  color: #fff;
-}
-</style>
-
-<button>Play</button>	
 <!-- svelte-ignore a11y-media-has-caption -->
-<audio class="play" autoplay>
-  <source src="./resources/sounds/nature-sounds.mp3">
-</audio>
+<audio bind:currentTime bind:duration bind:this={audioElement} preload="metadata" on:ended={nextAudio}></audio>
+<ProgressBar>
+  <button on:click={playPause}>
+    {#if $play}
+      Pause
+    {:else}
+      Play
+    {/if}
+  </button>
+</ProgressBar>
+
+

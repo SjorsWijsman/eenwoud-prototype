@@ -5,6 +5,7 @@ import Forest from './sections/Forest.svelte'
 import ForestTransition from './sections/ForestTransition.svelte'
 import ForestWalk from './sections/ForestWalk.svelte'
 
+import Text from "./components/Text.svelte"
 import AudioPlayer from './components/AudioPlayer.svelte'
 
 import { gsap } from "gsap"
@@ -89,7 +90,7 @@ main > * {
 #forestWalk {
 	min-height: 500vh;
 	background-color: yellow;
-	padding-top: 300vh;
+	flex-direction: column;
 }
 
 #forestTransition {
@@ -104,24 +105,31 @@ main > * {
 
 </style>
 
-<AudioPlayer/>	
 <header>
 	<Sky/>
 </header>
 <main>
+	<Text>Welkom in Eenwoud.</Text>	
+
 	<section id="foliage">
-		<Foliage/>
+		<Foliage></Foliage>
 	</section>
+
+	<Text>Eenwoud is een bos waarin de nazaten van betekenisvolle bomen proberen samen 1000 jaar te overleven.</Text>	
+	
 	<section id="forestTransition">
-		<ForestTransition/>
+		<ForestTransition></ForestTransition>
 	</section>
+
+	<Text>Ook jij kan een boom voordragen aan Eenwoud.</Text>	
+	
 	{#if !walk}
 	<section id="forest">
-		<Forest/>
+		<Forest></Forest>
 	</section>
 	{:else}
 	<section id="forestWalk">
-		<ForestWalk/>
+		<ForestWalk></ForestWalk>
 	</section>
 	{/if}
 </main>
