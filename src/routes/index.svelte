@@ -8,7 +8,7 @@
 	import Text from '../components/Text.svelte'
 
 	import { gsap } from 'gsap'
-	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger.js'
 	gsap.registerPlugin(ScrollTrigger)
 	gsap.core.globals('ScrollTrigger', ScrollTrigger)
 
