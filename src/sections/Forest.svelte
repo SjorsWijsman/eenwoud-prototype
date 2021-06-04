@@ -1,11 +1,11 @@
-<style>
-img {
-  position: sticky;
-  bottom: 0;
-  min-width: 100vw;
-  min-height: 100vh;
-  object-fit: cover;
-}
-</style>
+<img src="../resources/images/forest-path.jpeg" alt="" />
 
-<img src="../resources/images/forest-path.jpeg" alt="">
+<style>
+	img {
+		position: sticky;
+		bottom: 0;
+		min-width: 100vw;
+		min-height: 100vh;
+		object-fit: cover;
+	}
+</style>
