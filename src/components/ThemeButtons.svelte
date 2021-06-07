@@ -1,5 +1,5 @@
 <script>
-	import { stories, selectedThemes } from '../store.js'
+	import { stories, selectedThemes } from '$lib/store'
 
 	let themes
 

@@ -2,8 +2,9 @@
 	import ThemeButtons from '../components/ThemeButtons.svelte'
 	import GenerateWalk from '../components/GenerateWalk.svelte'
 	import AudioPlayer from '../components/AudioPlayer.svelte'
+	import TreeGenerator from '../components/TreeGenerator.svelte'
 
-	import { stories } from '../store.js'
+	import { stories } from '$lib/store'
 
 	fetch('resources/data/stories.json')
 		.then((response) => response.json())
@@ -17,6 +18,7 @@
 		<ThemeButtons />
 		<GenerateWalk />
 	</div>
+	<TreeGenerator />
 	<AudioPlayer />
 </section>
 

@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte'
 	import ProgressBar from '../components/ProgressBar.svelte'
-	import { walk, play, audioIndex, progress } from '../store.js'
+	import { walk, play, audioIndex, progress } from '$lib/store'
 
 	let audioElement
 	let duration

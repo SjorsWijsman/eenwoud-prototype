@@ -1,7 +1,5 @@
 <script>
-	import { onMount } from 'svelte'
-
-	import { walk, stories, selectedThemes } from '../store.js'
+	import { walk, stories, selectedThemes } from '$lib/store'
 
 	const maxStoriesCount = 3
 

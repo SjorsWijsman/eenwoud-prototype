@@ -1,5 +1,5 @@
 <script>
-	import { walk, progress, audioIndex } from '../store.js'
+	import { walk, progress, audioIndex } from '$lib/store'
 	import { fly } from 'svelte/transition'
 </script>
 
