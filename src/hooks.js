@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb'
+import * as mongodb from 'mongodb'
 import { DB_USER, DB_PASS, DB_NAME } from '$lib/env'
 import { treeCollection } from '$lib/store'
 
@@ -18,7 +18,7 @@ export async function handle({ request, resolve }) {
 	})
 
 	if (!treeStore) {
-		MongoClient.connect(uri, options, (err, client) => {
+		mongodb.MongoClient.connect(uri, options, (err, client) => {
 			if (err) throw err
 			else {
 				db = client.db('eenwoud-database')
