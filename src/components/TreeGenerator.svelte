@@ -39,8 +39,8 @@
 			}
 			const curve = Math.random() * 10 + 10
 
-			drawTree(0, -len, len * 0.75, angle + curve, branchWidth * 0.6, color1, color2)
-			drawTree(0, -len, len * 0.75, angle - curve, branchWidth * 0.6, color1, color2)
+			// drawTree(0, -len, len * 0.75, angle + curve, branchWidth * 0.6, color1, color2)
+			// drawTree(0, -len, len * 0.75, angle - curve, branchWidth * 0.6, color1, color2)
 
 			ctx.restore()
 		}
