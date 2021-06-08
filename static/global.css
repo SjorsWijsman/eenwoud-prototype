@@ -1,6 +1,11 @@
 html {
-	--color-sky-light: #b6e4fe;
-	--color-sky-dark: #00589f;
+	--color-sky-light: hsla(202, 97%, 85%, 1);
+	--color-sky-dark: hsla(207, 100%, 31%, 1);
+  --color-white: hsla(255, 100%, 100%, 1);
+  --color-green: hsla(117, 100%, 34%, 1);
+  --color-red: hsla(0, 100%, 34%, 1);
+  --color-light-grey: hsla(240, 14%, 95%, 0.8);
+  --color-light-grey-lighter: hsla(240, 14%, 95%, 0.3);
   font-size: calc(60% + 0.8vmin);
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
@@ -19,12 +24,41 @@ html {
   box-sizing: border-box;
   font-size: 1rem;
   cursor: default;
+  font-family: 'Baloo Tammudu 2', cursive;
+  line-height: 1.5em;
 }
 
 button {
   cursor: pointer;
+  border: 0;
+  padding: 1rem;
+  padding-bottom: 0.6rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-light-grey);
+}
+
+button.confirm {
+  color: var(--color-white);
+  background-color: var(--color-green);
+}
+
+button.decline {
+  color: var(--color-white);
+  background-color: var(--color-red);
 }
 
 button img {
   pointer-events: none;
+}
+
+h1 {
+  font-size: 1.8rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+h3 {
+  font-size: 1.2rem;
 }

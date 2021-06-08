@@ -18,6 +18,8 @@
 			method: 'POST',
 			body: JSON.stringify({
 				timestamp: Date.now(),
+				title: '',
+				status: 'Voorgedragen',
 				fullName,
 				mailAdress,
 				photoEnvironment,

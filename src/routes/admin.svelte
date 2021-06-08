@@ -1,4 +1,6 @@
 <script>
+	import DataTable from '../components/DataTable.svelte'
+
 	let submit
 
 	function getData() {
@@ -12,30 +14,59 @@
 				return { error: err }
 			})
 	}
+
+	function saveData() {}
 </script>
 
 <svelte:head>
 	<title>Admin</title>
 </svelte:head>
 
-<main>
-	<slot />
+<header>
+	<h1>Admin Pagina</h1>
+	<form on:submit|preventDefault={saveData} method="post">
+		<button type="submit" class="confirm">Opslaan</button>
+	</form>
 	<form on:submit|preventDefault={getData} method="post">
 		<button type="submit">Haal Data op</button>
 	</form>
+</header>
+<main>
+	<slot />
 	{#if submit}
 		{#await submit}
 			<p>Data wordt opgehaald...</p>
 		{:then res}
-			<pre>{JSON.stringify(res, null, 2)}</pre>
+			<DataTable data={res.data} />
 		{/await}
 	{/if}
 </main>
 
 <style>
-	main {
-		padding: 1rem;
+	header {
 		margin: 0 auto;
 		max-width: 50rem;
+		display: flex;
+		align-items: baseline;
+		margin-bottom: 1rem;
+		background-color: var(--color-white);
+		position: sticky;
+		top: 0;
+		padding: 1rem 2rem;
+	}
+
+	header h1 {
+		margin-right: auto;
+	}
+
+	header form {
+		margin-left: 1rem;
+	}
+
+	main {
+		padding-top: 0;
+		margin: 0 auto;
+		max-width: 50rem;
+		padding: 1rem;
 	}
 </style>
