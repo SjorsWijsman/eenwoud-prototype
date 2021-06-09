@@ -10,16 +10,13 @@
 		treeReason = 'Omdat ik dit een hele gave boom vind.',
 		treeAge = 4,
 		tips = 'Meer bomen',
-		keepMeUpdated = 'Ja'
+		keepMeUpdated = true
 
 	function handleSubmit(e) {
 		// Send a POST request to src/routes/contact.js endpoint
-		submit = fetch('/boom-voordragen', {
+		submit = fetch('/api/submitTree', {
 			method: 'POST',
 			body: JSON.stringify({
-				timestamp: Date.now(),
-				title: '',
-				status: 'Voorgedragen',
 				fullName,
 				mailAdress,
 				photoEnvironment,

@@ -20,14 +20,13 @@
 		"format": "prettier --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
+		"@supabase/supabase-js": "^1.13.2",
 		"@sveltejs/adapter-vercel": "next",
 		"@sveltejs/kit": "next",
 		"eslint": "^7.22.0",
 		"eslint-config-prettier": "^8.1.0",
 		"eslint-plugin-svelte3": "^3.2.0",
 		"gsap": "^3.6.1",
-		"mongodb": "^3.6.9",
-		"mongodb-client-encryption": "^1.2.4",
 		"prettier": "~2.2.1",
 		"prettier-plugin-svelte": "^2.2.0",
 		"svelte": "^3.34.0"

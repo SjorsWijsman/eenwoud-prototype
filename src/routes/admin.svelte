@@ -4,7 +4,7 @@
 	let submit
 
 	function getData() {
-		submit = fetch('/admin', {
+		submit = fetch('/api/getTrees', {
 			method: 'POST',
 			body: JSON.stringify({ getData: true }),
 		})
