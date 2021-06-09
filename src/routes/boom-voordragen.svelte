@@ -3,8 +3,10 @@
 
 	let fullName = 'Test Naam',
 		mailAdress = 'test@email.com',
-		photoEnvironment = 'foto-omgeving.png',
-		photoDuo = 'foto-samen.png',
+		photoEnvironment = '',
+		photoEnvironmentImage = '',
+		photoDuo = '',
+		photoDuoImage = '',
 		treeLocation = '41.40338, 2.17403',
 		treeMeaning = 'Deze boom betekent veel voor mij.',
 		treeReason = 'Omdat ik dit een hele gave boom vind.',
@@ -12,7 +14,18 @@
 		tips = 'Meer bomen',
 		keepMeUpdated = true
 
-	function handleSubmit(e) {
+	// Convert image input to base64 string
+	function imageToBase64(file, callback) {
+		if (!file) return file
+		let image = file[0]
+		let reader = new FileReader()
+		reader.readAsDataURL(image)
+		reader.onload = (e) => {
+			callback(e.target.result)
+		}
+	}
+
+	function handleSubmit() {
 		// Send a POST request to src/routes/contact.js endpoint
 		submit = fetch('/api/submitTree', {
 			method: 'POST',
@@ -53,15 +66,29 @@
 
 		<label for="photoEnvironment">Fotografeer je boom in zijn omgeving.</label>
 		<input
-			required
-			type="photo"
-			name="photoEnvironment"
+			type="file"
 			id="photoEnvironment"
-			bind:value={photoEnvironment}
+			name="photoEnvironment"
+			accept="image/png, image/jpeg"
+			bind:files={photoEnvironmentImage}
+			on:change={() =>
+				imageToBase64(photoEnvironmentImage, (result) => {
+					photoEnvironment = result
+				})}
 		/>
 
 		<label for="photoDuo">Maak een duo portret van jezelf en de boom.</label>
-		<input required type="photo" name="photoDuo" id="photoDuo" bind:value={photoDuo} />
+		<input
+			type="file"
+			id="photoDuo"
+			name="photoDuo"
+			accept="image/png, image/jpeg"
+			bind:files={photoDuoImage}
+			on:change={() =>
+				imageToBase64(photoDuoImage, (result) => {
+					photoDuo = result
+				})}
+		/>
 
 		<label for="treeLocation">
 			Waar staat deze boom? Noteer de coordinaten van de standplaats. Gebruik geen komma's maar
