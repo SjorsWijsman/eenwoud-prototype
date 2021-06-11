@@ -35,10 +35,3 @@ const nativeNodeModulesPlugin = {
 		opts.loader['.node'] = 'file'
 	},
 }
-
-build({
-	entryPoints: ['threads'],
-	bundle: true,
-	outdir: 'out',
-	plugins: [nativeNodeModulesPlugin],
-})
