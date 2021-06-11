@@ -64,4 +64,9 @@
 		height: 2rem;
 		width: 2rem;
 	}
+
+	button img {
+		width: 2rem;
+		height: 2rem;
+	}
 </style>

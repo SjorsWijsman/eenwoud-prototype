@@ -28,7 +28,7 @@ html {
   line-height: 1.5em;
 }
 
-button {
+button, input[type="submit"] {
   cursor: pointer;
   border: 0;
   padding: 1rem;
@@ -37,12 +37,12 @@ button {
   background-color: var(--color-light-grey);
 }
 
-button.confirm {
+button.confirm, input[type="submit"].confirm {
   color: var(--color-white);
   background-color: var(--color-green);
 }
 
-button.decline {
+button.decline, input[type="submit"].decline {
   color: var(--color-white);
   background-color: var(--color-red);
 }

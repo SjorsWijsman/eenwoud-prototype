@@ -2,8 +2,6 @@
 	import DataRow from './DataRow.svelte'
 
 	export let data
-
-	data = JSON.parse(data)
 </script>
 
 <section>

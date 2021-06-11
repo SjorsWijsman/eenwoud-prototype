@@ -1,4 +1,7 @@
 <script>
+	import { supabase } from '$lib/db'
+	import { session } from '$app/stores'
+
 	export let data
 
 	let expand = false
@@ -17,6 +20,10 @@
 	}
 
 	let timestamp = new Date(data.timestamp).toLocaleString()
+
+	function getImageURL(imgPath) {
+		return supabase.storage.from('eenwoud-bucket').getPublicUrl(`${imgPath}`).publicURL
+	}
 </script>
 
 <article>
@@ -32,6 +39,7 @@
 			<p>{data.mailAdress}</p>
 			<p>{displayedData.keepMeUpdated}</p>
 			<p>{data.keepMeUpdated}</p>
+
 			<h3>Voorgedragen Boom</h3>
 			<p>{displayedData.treeMeaning}</p>
 			<p>{data.treeMeaning}</p>
@@ -41,11 +49,13 @@
 			<p>{data.treeAge}</p>
 			<p>{displayedData.treeLocation}</p>
 			<p>{data.treeLocation}</p>
+
 			<h3>Foto's</h3>
 			<p>{displayedData.photoDuo}</p>
-			<p>{data.photoDuo}</p>
+			<img src={getImageURL(`${data.photoId}-duo.webp`)} alt="" />
 			<p>{displayedData.photoEnvironment}</p>
-			<p>{data.photoEnvironment}</p>
+			<img src={getImageURL(`${data.photoId}-env.webp`)} alt="" />
+
 			<h3>Admin</h3>
 			<p>{displayedData.tips}</p>
 			<p>{data.tips}</p>

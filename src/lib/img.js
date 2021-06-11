@@ -1,4 +1,4 @@
-import supabase from '$lib/db'
+import { supabase } from '$lib/db'
 import sharp from 'sharp'
 import fs from 'fs'
 import FormData from 'form-data'
@@ -20,7 +20,7 @@ export async function downloadBase64Image(base64, filename) {
 
 // Upload image from /uploads directory to supabase & delete
 export async function uploadImage(id) {
-	const path = `${supabase.storage.url}/object/eenwoud-bucket/${id}`
+	const path = `${supabase.storage.url}/object/eenwoud-bucket/${id}.webp`
 	const headers = supabase.storage.headers
 	const filePath = `uploads/${id}.webp`
 	const data = await fs.promises.readFile(filePath)
@@ -30,16 +30,20 @@ export async function uploadImage(id) {
 	formData.append('', data, filePath)
 	formData.append('cacheControl', 3600)
 
-	await fetch(path, {
-		method: 'POST',
-		headers,
-		body: formData,
-	})
-
-	fs.unlink(filePath, (err) => {
-		if (err) {
-			console.error(err)
-			return
-		}
-	})
+	try {
+		// Post image to supabase
+		await fetch(path, {
+			method: 'POST',
+			headers,
+			body: formData,
+		})
+	} finally {
+		// Delete image from servevr
+		fs.unlink(filePath, (err) => {
+			if (err) {
+				console.error(err)
+				return
+			}
+		})
+	}
 }

@@ -1,7 +1,7 @@
-import supabase from '$lib/db'
+import { supabase } from '$lib/db'
 
 export async function post() {
-	let data = await supabase.from('bomen').select()
+	let { data, error } = await supabase.from('bomen').select()
 
-	return { body: { data: JSON.stringify(data.body), success: true } }
+	return { body: { data: JSON.stringify(data.body), error } }
 }

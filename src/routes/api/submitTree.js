@@ -1,4 +1,4 @@
-import supabase from '$lib/db'
+import { supabase } from '$lib/db'
 import { downloadBase64Image, uploadImage } from '$lib/img'
 import { v4 as uuid } from 'uuid'
 
@@ -7,18 +7,14 @@ export async function post(request) {
 
 	console.log('Downloading images')
 
-	const id = uuid()
-	await downloadBase64Image(body.photoDuo, `${id}-duo`)
-	await downloadBase64Image(body.photoEnvironment, `${id}-env`)
+	const photoId = uuid()
+	await downloadBase64Image(body.photoDuo, `${photoId}-duo`)
+	await uploadImage(`${photoId}-duo`)
 
-	console.log('Uploading images to supabase')
+	await downloadBase64Image(body.photoEnvironment, `${photoId}-env`)
+	await uploadImage(`${photoId}-env`)
 
-	await uploadImage(`${id}-duo`)
-	await uploadImage(`${id}-env`)
-
-	console.log('Sending data to supabase datatable')
-
-	body.photoId = id
+	body.photoId = photoId
 	delete body.photoDuo
 	delete body.photoEnvironment
 
