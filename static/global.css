@@ -1,9 +1,10 @@
 html {
 	--color-sky-light: hsla(202, 97%, 85%, 1);
-	--color-sky-dark: hsla(207, 100%, 31%, 1);
+	--color-sky-dark: var(--color-blue);
   --color-white: hsla(255, 100%, 100%, 1);
   --color-green: hsla(117, 100%, 34%, 1);
   --color-red: hsla(0, 100%, 34%, 1);
+  --color-blue: hsla(207, 100%, 31%, 1);
   --color-light-grey: hsla(240, 14%, 95%, 0.8);
   --color-light-grey-lighter: hsla(240, 14%, 95%, 0.3);
   font-size: calc(60% + 0.8vmin);
@@ -45,6 +46,18 @@ button.confirm, input[type="submit"].confirm {
 button.decline, input[type="submit"].decline {
   color: var(--color-white);
   background-color: var(--color-red);
+}
+
+button.edit, input[type="submit"].edit {
+  color: var(--color-white);
+  background-color: var(--color-blue);
+}
+
+input[type="text"], input[type="number"], textarea {
+  border: 0;
+  padding: 0.5rem;
+  padding-top: 0.8rem;
+  border-radius: 0.4rem;
 }
 
 button img {
