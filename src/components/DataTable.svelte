@@ -6,7 +6,7 @@
 
 <section>
 	{#each data as boom}
-		<DataRow data={boom} />
+		<DataRow {...boom} dataCopy={boom} />
 	{/each}
 </section>
 

@@ -1,10 +1,40 @@
 <script>
 	import { supabase } from '$lib/db'
-	import { session } from '$app/stores'
 
-	export let data
+	export let id,
+		dataCopy,
+		fullName,
+		status,
+		mailAdress,
+		keepMeUpdated,
+		treeMeaning,
+		treeReason,
+		treeAge,
+		treeLocation,
+		tips,
+		timestamp,
+		title,
+		audioLink
 
 	let expand = false
+
+	// Update data object on change
+	let dataChanges
+	$: dataChanges = {
+		fullName,
+		status,
+		mailAdress,
+		keepMeUpdated,
+		treeMeaning,
+		treeReason,
+		treeAge,
+		treeLocation,
+		tips,
+		timestamp,
+		title,
+		id,
+		audioLink,
+	}
 
 	const displayedData = {
 		keepMeUpdated: 'Hou me op de hoogte',
@@ -17,52 +47,75 @@
 		treeMeaning: 'Boom betekenis',
 		treeReason: 'Reden van voordracht',
 		title: 'Titel',
+		status: 'Huidige status',
+		audioLink: 'Link naar audioverhaal',
 	}
 
-	let timestamp = new Date(data.timestamp).toLocaleString()
+	let localTimestamp = new Date(timestamp).toLocaleString()
 
 	function getImageURL(imgPath) {
 		return supabase.storage.from('eenwoud-bucket').getPublicUrl(`${imgPath}`).publicURL
+	}
+
+	async function updateData() {
+		const { data, error } = await supabase
+			.from('bomen')
+			.update(dataChanges)
+			.match({ id: dataChanges.id })
+
+		if (error) throw new Error(error)
+
+		dataCopy = data[0]
 	}
 </script>
 
 <article>
 	<div on:click={() => (expand = !expand)}>
-		<h2>{data.fullName}</h2>
-		<p>{data.status}</p>
-		<p>{timestamp}</p>
+		<h2>{fullName}</h2>
+		<p>{status}</p>
+		<p>{localTimestamp}</p>
 	</div>
 	{#if expand}
 		<div>
 			<h3>Contact</h3>
-			<p>{displayedData.mailAdress}</p>
-			<p>{data.mailAdress}</p>
-			<p>{displayedData.keepMeUpdated}</p>
-			<p>{data.keepMeUpdated}</p>
+			<p class="title">{displayedData.mailAdress}</p>
+			<input class="value" type="text" bind:value={mailAdress} />
+			<p class="title">{displayedData.keepMeUpdated}</p>
+			<input class="value" type="text" bind:value={keepMeUpdated} />
 
 			<h3>Voorgedragen Boom</h3>
-			<p>{displayedData.treeMeaning}</p>
-			<p>{data.treeMeaning}</p>
-			<p>{displayedData.treeReason}</p>
-			<p>{data.treeReason}</p>
-			<p>{displayedData.treeAge}</p>
-			<p>{data.treeAge}</p>
-			<p>{displayedData.treeLocation}</p>
-			<p>{data.treeLocation}</p>
+			<p class="title">{displayedData.treeMeaning}</p>
+			<textarea class="value" bind:value={treeMeaning} />
+			<p class="title">{displayedData.treeReason}</p>
+			<textarea class="value" bind:value={treeReason} />
+			<p class="title">{displayedData.treeAge}</p>
+			<input class="value" type="number" bind:value={treeAge} />
+			<p class="title">{displayedData.treeLocation}</p>
+			<input class="value" type="text" bind:value={treeLocation} />
 
 			<h3>Foto's</h3>
-			<p>{displayedData.photoDuo}</p>
-			<img src={getImageURL(`${data.photoId}-duo.webp`)} alt="" />
-			<p>{displayedData.photoEnvironment}</p>
-			<img src={getImageURL(`${data.photoId}-env.webp`)} alt="" />
+			<p class="title">{displayedData.photoDuo}</p>
+			<img class="value" src={getImageURL(`${id}-duo`)} alt="" />
+			<p class="title">{displayedData.photoEnvironment}</p>
+			<img class="value" src={getImageURL(`${id}-env`)} alt="" />
 
 			<h3>Admin</h3>
-			<p>{displayedData.tips}</p>
-			<p>{data.tips}</p>
+			<p class="title">{displayedData.status}</p>
+			<p class="value">{status}</p>
+			<p class="title">{displayedData.tips}</p>
+			<textarea class="value" bind:value={tips} />
+			<p class="title">{displayedData.title}</p>
+			<input class="value" type="text" bind:value={title} />
+			<p class="title">{displayedData.audioLink}</p>
+			<input class="value" type="text" bind:value={audioLink} />
 		</div>
 		<div>
-			<button class="decline">Afwijzen</button>
-			<button class="confirm">Accepteren</button>
+			<button class="decline" on:click={() => (status = 'Afgewezen')}>Afwijzen</button>
+			<button class="confirm" on:click={() => (status = 'Geaccepteerd')}>Accepteren</button>
+			<!-- Check if there are data changes -->
+			{#if !Object.values(dataChanges).every((value) => Object.values(dataCopy).includes(value))}
+				<button class="edit" on:click={() => updateData()}>Veranderingen Opslaan</button>
+			{/if}
 		</div>
 	{/if}
 </article>
@@ -94,9 +147,20 @@
 
 	article div:nth-child(2) {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
-		grid-gap: 0.5rem;
+		grid-template-columns: 1fr 2fr;
+		grid-template-areas: 'title value';
+		grid-gap: 1rem;
 		padding-top: 0;
+		align-items: center;
+	}
+
+	.title {
+		grid-column: title;
+		opacity: 0.7;
+	}
+
+	.value {
+		grid-column: value;
 	}
 
 	article div:nth-child(3) {
@@ -106,9 +170,18 @@
 		margin: 1rem 0;
 	}
 
+	article div:nth-child(3) :nth-child(3) {
+		margin-left: auto;
+	}
+
 	h3 {
 		grid-column: 1 / 3;
 		margin-top: 1rem;
 		margin-bottom: -0.2rem;
+	}
+
+	img {
+		object-fit: contain;
+		max-width: 100%;
 	}
 </style>

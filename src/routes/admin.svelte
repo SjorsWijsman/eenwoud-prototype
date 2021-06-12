@@ -15,10 +15,11 @@
 
 	async function getData() {
 		const { data, error } = await supabase.from('bomen').select()
-		return { data, error }
-	}
 
-	function saveData() {}
+		if (error) throw new Error(error)
+
+		return data
+	}
 </script>
 
 <svelte:head>
@@ -27,23 +28,16 @@
 <slot />
 <header>
 	<h1>Admin Pagina</h1>
-	{#if $session.user && $session.user.role === 'authenticated'}
-		<form on:submit|preventDefault={saveData} method="post">
-			<button type="submit" class="confirm">Opslaan</button>
-		</form>
-	{/if}
 </header>
 <main>
 	{#if $session.user && $session.user.role === 'authenticated'}
 		{#await getData()}
 			<p>Data wordt opgehaald...</p>
-		{:then res}
-			{#if res.data}
-				<DataTable data={res.data} />
-			{:else}
-				<p>Er is iets mis gegaan bij het ophalen van de data. Probeer het opnieuw:</p>
-				<pre>{res.error.message}</pre>
-			{/if}
+		{:then data}
+			<DataTable {data} />
+		{:catch error}
+			<p>Er is iets mis gegaan bij het ophalen van de data. Probeer het opnieuw:</p>
+			<pre>{error.message}</pre>
 		{/await}
 	{:else}
 		<form on:submit|preventDefault={signIn}>
@@ -73,14 +67,11 @@
 		position: sticky;
 		top: 0;
 		padding: 1rem 2rem;
+		z-index: 1;
 	}
 
 	header h1 {
 		margin-right: auto;
-	}
-
-	header form {
-		margin-left: 1rem;
 	}
 
 	main {
@@ -88,6 +79,7 @@
 		margin: 0 auto;
 		max-width: 50rem;
 		padding: 1rem;
+		padding-bottom: 50vh;
 	}
 
 	main form {
