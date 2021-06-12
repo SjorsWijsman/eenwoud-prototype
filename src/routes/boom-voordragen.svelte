@@ -14,6 +14,10 @@
 		photoEnvironment,
 		photoDuo
 
+	let photoUploadProgress = 0,
+		photos = [],
+		photoSuffixes = ['-env', '-duo']
+
 	async function handleSubmit() {
 		// Send a POST request to src/routes/contact.js endpoint
 		const { data, error } = await fetch('/api/submitTree', {
@@ -33,21 +37,21 @@
 
 		if (error) throw new Error(error)
 
+		sendImages(data.id)
+
 		return data
 	}
 
 	async function sendImages(id) {
-		const photos = [photoEnvironment[0], photoDuo[0]]
-		const photoSuffixes = ['-env', '-duo']
-
-		photos.forEach(async (photo, index) => {
-			const { data, error } = await supabase.storage
+		photoUploadProgress = 0
+		photos = [photoEnvironment[0], photoDuo[0]]
+		photos.forEach((photo, index) => {
+			const { data, error } = supabase.storage
 				.from('eenwoud-bucket')
 				.upload(`${id}${photoSuffixes[index]}`, photo)
-
 			if (error) throw new Error(error)
 
-			return data
+			photoUploadProgress += 1
 		})
 	}
 </script>
@@ -112,15 +116,17 @@
 			bind:value={keepMeUpdated}
 		/>
 
-		<button type="submit">Submit</button>
+		<button type="submit" on:click={() => (submit = false)}>Submit</button>
 	</form>
 	{#if submit}
 		{#await handleSubmit()}
-			<p>Aan het versturen...</p>
+			<p>Data versturen...</p>
 		{:then data}
-			{#await sendImages(data.id)}
-				<p>Foto's verstuurd</p>
-			{/await}
+			{#if photoUploadProgress !== photos.length}
+				<p>Foto's verstuurd: {photoUploadProgress}/{photos.length}</p>
+			{:else}
+				<p>Je voordracht is succesvol verstuurd! {photoUploadProgress}/{photos.length}</p>
+			{/if}
 		{:catch error}
 			<p>Er is iets mis gegaan bij het ophalen van de data. Probeer het opnieuw:</p>
 			<pre>{error.message}</pre>
