@@ -1,6 +1,5 @@
 <script>
 	import { supabase } from '$lib/db'
-	import { imgSrcToBlob } from 'blob-util'
 
 	let submit
 
