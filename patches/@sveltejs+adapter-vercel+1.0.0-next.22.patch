@@ -1,0 +1,22 @@
+diff --git a/node_modules/@sveltejs/adapter-vercel/index.js b/node_modules/@sveltejs/adapter-vercel/index.js
+index ffdedfe..04d3f2d 100644
+--- a/node_modules/@sveltejs/adapter-vercel/index.js
++++ b/node_modules/@sveltejs/adapter-vercel/index.js
+@@ -2,6 +2,7 @@ import { writeFileSync } from 'fs';
+ import { join } from 'path';
+ import { fileURLToPath } from 'url';
+ import esbuild from 'esbuild';
++import { nativeNodeModulesPlugin } from '../../../native-node-modules.js';
+ 
+ export default function () {
+ 	/** @type {import('@sveltejs/kit').Adapter} */
+@@ -31,7 +32,8 @@ export default function () {
+ 				entryPoints: ['.svelte-kit/vercel/entry.js'],
+ 				outfile: join(dirs.lambda, 'index.js'),
+ 				bundle: true,
+-				platform: 'node'
++				platform: 'node',
++				plugins: [nativeNodeModulesPlugin]
+ 			});
+ 
+ 			writeFileSync(join(dirs.lambda, 'package.json'), JSON.stringify({ type: 'commonjs' }));

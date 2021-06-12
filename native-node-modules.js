@@ -1,6 +1,7 @@
-import { build } from 'esbuild'
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
 
-const nativeNodeModulesPlugin = {
+export const nativeNodeModulesPlugin = {
 	name: 'native-node-modules',
 	setup(build) {
 		// If a ".node" file is imported within a module in the "file" namespace, resolve

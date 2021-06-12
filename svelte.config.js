@@ -6,11 +6,6 @@ const config = {
 		// hydrate the <body id="svelte"> element in src/app.html
 		target: '#svelte',
 		adapter: vercel(),
-		vite: {
-			optimizeDeps: {
-				include: 'sharp',
-			},
-		},
 	},
 }
 
