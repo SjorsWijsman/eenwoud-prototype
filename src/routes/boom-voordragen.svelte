@@ -1,39 +1,27 @@
 <script>
+	import { supabase } from '$lib/db'
+	import { imgSrcToBlob } from 'blob-util'
+
 	let submit
 
 	let fullName = 'Test Naam',
 		mailAdress = 'test@email.com',
-		photoEnvironment = '',
-		photoEnvironmentImage = '',
-		photoDuo = '',
-		photoDuoImage = '',
 		treeLocation = '41.40338, 2.17403',
 		treeMeaning = 'Deze boom betekent veel voor mij.',
 		treeReason = 'Omdat ik dit een hele gave boom vind.',
 		treeAge = 4,
 		tips = 'Meer bomen',
-		keepMeUpdated = true
+		keepMeUpdated = true,
+		photoEnvironment,
+		photoDuo
 
-	// Convert image input to base64 string
-	function imageToBase64(file, callback) {
-		if (!file) return file
-		let image = file[0]
-		let reader = new FileReader()
-		reader.readAsDataURL(image)
-		reader.onload = (e) => {
-			callback(e.target.result)
-		}
-	}
-
-	function handleSubmit() {
+	async function handleSubmit() {
 		// Send a POST request to src/routes/contact.js endpoint
-		submit = fetch('/api/submitTree', {
+		const { data, error } = await fetch('/api/submitTree', {
 			method: 'POST',
 			body: JSON.stringify({
 				fullName,
 				mailAdress,
-				photoEnvironment,
-				photoDuo,
 				treeLocation,
 				treeMeaning,
 				treeReason,
@@ -42,12 +30,26 @@
 				keepMeUpdated,
 			}),
 			headers: { 'content-type': 'application/json' },
+		}).then((res) => res.json())
+
+		if (error) throw new Error(error)
+
+		return data
+	}
+
+	async function sendImages(id) {
+		const photos = [photoEnvironment[0], photoDuo[0]]
+		const photoSuffixes = ['-env', '-duo']
+
+		photos.forEach(async (photo, index) => {
+			const { data, error } = await supabase.storage
+				.from('eenwoud-bucket')
+				.upload(`${id}${photoSuffixes[index]}`, photo)
+
+			if (error) throw new Error(error)
+
+			return data
 		})
-			.then((res) => res.json())
-			.catch((err) => {
-				console.error(err)
-				return { error: err }
-			})
 	}
 </script>
 
@@ -57,7 +59,7 @@
 
 <main>
 	<slot />
-	<form on:submit|preventDefault={handleSubmit} method="post">
+	<form on:submit|preventDefault={() => (submit = true)} method="post">
 		<label for="name">Volledige Naam</label>
 		<input required type="text" name="name" id="name" bind:value={fullName} />
 
@@ -70,11 +72,7 @@
 			id="photoEnvironment"
 			name="photoEnvironment"
 			accept="image/png, image/jpeg"
-			bind:files={photoEnvironmentImage}
-			on:change={() =>
-				imageToBase64(photoEnvironmentImage, (result) => {
-					photoEnvironment = result
-				})}
+			bind:files={photoEnvironment}
 		/>
 
 		<label for="photoDuo">Maak een duo portret van jezelf en de boom.</label>
@@ -83,11 +81,7 @@
 			id="photoDuo"
 			name="photoDuo"
 			accept="image/png, image/jpeg"
-			bind:files={photoDuoImage}
-			on:change={() =>
-				imageToBase64(photoDuoImage, (result) => {
-					photoDuo = result
-				})}
+			bind:files={photoDuo}
 		/>
 
 		<label for="treeLocation">
@@ -122,13 +116,15 @@
 		<button type="submit">Submit</button>
 	</form>
 	{#if submit}
-		{#await submit}
-			<p>Sending...</p>
-		{:then res}
-			<p>🎉 Done!</p>
-			<pre>RESPONSE: {JSON.stringify(res, null, 2)}</pre>
-		{:catch err}
-			<pre>ERROR: {JSON.stringify(err, null, 2)}</pre>
+		{#await handleSubmit()}
+			<p>Aan het versturen...</p>
+		{:then data}
+			{#await sendImages(data.id)}
+				<p>Foto's verstuurd</p>
+			{/await}
+		{:catch error}
+			<p>Er is iets mis gegaan bij het ophalen van de data. Probeer het opnieuw:</p>
+			<pre>{error.message}</pre>
 		{/await}
 	{/if}
 </main>

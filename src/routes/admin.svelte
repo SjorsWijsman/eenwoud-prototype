@@ -15,7 +15,10 @@
 
 	async function getData() {
 		const { data, error } = await supabase.from('bomen').select()
-		return { data, error }
+
+		if (error) throw new Error(error)
+
+		return data
 	}
 
 	function saveData() {}
@@ -37,13 +40,11 @@
 	{#if $session.user && $session.user.role === 'authenticated'}
 		{#await getData()}
 			<p>Data wordt opgehaald...</p>
-		{:then res}
-			{#if res.data}
-				<DataTable data={res.data} />
-			{:else}
-				<p>Er is iets mis gegaan bij het ophalen van de data. Probeer het opnieuw:</p>
-				<pre>{res.error.message}</pre>
-			{/if}
+		{:then data}
+			<DataTable {data} />
+		{:catch error}
+			<p>Er is iets mis gegaan bij het ophalen van de data. Probeer het opnieuw:</p>
+			<pre>{error.message}</pre>
 		{/await}
 	{:else}
 		<form on:submit|preventDefault={signIn}>

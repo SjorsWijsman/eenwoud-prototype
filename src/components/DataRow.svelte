@@ -1,6 +1,5 @@
 <script>
 	import { supabase } from '$lib/db'
-	import { session } from '$app/stores'
 
 	export let data
 
@@ -52,9 +51,9 @@
 
 			<h3>Foto's</h3>
 			<p>{displayedData.photoDuo}</p>
-			<img src={getImageURL(`${data.photoId}-duo.webp`)} alt="" />
+			<img src={getImageURL(`${data.id}-duo`)} alt="" />
 			<p>{displayedData.photoEnvironment}</p>
-			<img src={getImageURL(`${data.photoId}-env.webp`)} alt="" />
+			<img src={getImageURL(`${data.id}-env`)} alt="" />
 
 			<h3>Admin</h3>
 			<p>{displayedData.tips}</p>
