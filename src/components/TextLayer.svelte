@@ -35,6 +35,6 @@
 		font-size: 2rem;
 		max-width: 45rem;
 		margin: 1rem;
-		text-shadow: 1px 1px 5px rgb(6, 8, 7);
+		text-shadow: 1px 1px 0.3rem rgb(6, 8, 7), 1px 1px 1rem rgb(6, 8, 7);
 	}
 </style>

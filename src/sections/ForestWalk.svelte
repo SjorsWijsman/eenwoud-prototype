@@ -2,19 +2,21 @@
 	import AudioPlayer from '../components/AudioPlayer.svelte'
 	import TreeGenerator from '../components/TreeGenerator.svelte'
 
-	import { page } from '$app/stores'
 	import { stories, walk } from '$lib/store'
+	import { onMount } from 'svelte'
 
-	fetch(`http://${$page.host}${$page.path}resources/data/stories.json`)
-		.then((response) => response.json())
-		.then((storiesData) => {
-			stories.set(storiesData)
-			generateWalk()
-		})
-		.catch((error) => {
-			console.log(error)
-			throw new Error(error)
-		})
+	onMount(() => {
+		fetch(`resources/data/stories.json`)
+			.then((response) => response.json())
+			.then((storiesData) => {
+				stories.set(storiesData)
+				generateWalk()
+			})
+			.catch((error) => {
+				console.log(error)
+				throw new Error(error)
+			})
+	})
 
 	// Generate a new walk from selected themes
 	function generateWalk() {
