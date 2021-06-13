@@ -97,7 +97,6 @@
 	}
 
 	main form input {
-		padding: 0.4rem;
 		margin-top: -0.5rem;
 	}
 </style>
