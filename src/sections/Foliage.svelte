@@ -25,13 +25,14 @@
 	img {
 		position: absolute;
 		width: 100vw;
+		min-width: 50rem;
 		overflow-x: hidden;
 		background-color: transparent;
 		object-fit: cover;
 	}
 
 	img:nth-child(1) {
-		top: -20vh;
+		top: -10rem;
 	}
 
 	img:nth-child(2) {

@@ -10,7 +10,7 @@
 	</p>
 	<p>
 		Ook jij kan een boom voordragen aan Eenwoud.
-		<a href="./boom-voordragen">Draag nu een boom voor</a>
+		<a href="./boom-voordragen" target="_blank">Draag nu een boom voor</a>
 	</p>
 	<p>Maak hier een wandeling door de digitale versie van Eenwoud \/</p>
 </section>
@@ -21,7 +21,10 @@
 		flex-direction: column;
 		justify-content: space-between;
 		width: 100vw;
-		height: 250vh;
+		max-width: 70rem;
+		left: 50%;
+		transform: translateX(-50%);
+		height: 280vh;
 		position: absolute;
 		z-index: 5;
 		top: 150vh;
@@ -32,7 +35,6 @@
 		font-size: 2rem;
 		max-width: 45rem;
 		margin: 1rem;
-		margin-left: 10vh;
 		text-shadow: 1px 1px 5px rgb(6, 8, 7);
 	}
 </style>

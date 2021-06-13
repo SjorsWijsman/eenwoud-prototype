@@ -75,3 +75,13 @@ h2 {
 h3 {
   font-size: 1.2rem;
 }
+
+a {
+  color: white;
+  cursor: pointer;
+  font-size: inherit;
+}
+
+a:hover {
+  font-weight: bold;
+}

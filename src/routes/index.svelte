@@ -74,6 +74,12 @@
 		<ForestWalk />
 	</section>
 </main>
+<footer>
+	Eenwoud is een project van Lobke Meekes. Lees&nbsp; <a
+		href="https://www.lobkemeekes.nl/eenwoud/"
+		target="_blank">hier</a
+	> &nbsp;meer over Eenwoud.
+</footer>
 
 <style>
 	header {
@@ -136,5 +142,16 @@
 		top: 0;
 		background-color: hsl(124, 79%, 27%);
 		z-index: 4;
+	}
+
+	footer {
+		position: relative;
+		padding: 1rem;
+		width: 100%;
+		display: flex;
+		z-index: 1000;
+		color: white;
+		max-width: 58rem;
+		margin: 0 auto;
 	}
 </style>
