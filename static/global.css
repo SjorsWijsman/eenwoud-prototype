@@ -53,7 +53,7 @@ button.edit, input[type="submit"].edit {
   background-color: var(--color-blue);
 }
 
-input[type="text"], input[type="number"], textarea {
+input[type="text"], input[type="password"], input[type="number"], textarea {
   border: 0;
   padding: 0.5rem;
   padding-top: 0.8rem;
@@ -74,4 +74,14 @@ h2 {
 
 h3 {
   font-size: 1.2rem;
+}
+
+a {
+  color: white;
+  cursor: pointer;
+  font-size: inherit;
+}
+
+a:hover {
+  font-weight: bold;
 }

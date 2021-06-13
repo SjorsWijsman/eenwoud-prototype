@@ -1,4 +1,4 @@
-<img src="../resources/images/forest-path.jpeg" alt="" />
+<img src="../resources/images/forest-path.webp" alt="" />
 
 <style>
 	img {

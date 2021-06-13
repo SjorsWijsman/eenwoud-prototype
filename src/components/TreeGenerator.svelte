@@ -20,6 +20,8 @@
 				return false
 			} else {
 				// Leeg de canvas
+				ctx.fillStyle = 'rgba(255, 255, 255, 0)'
+
 				ctx.fillRect(0, 0, canvasBreedte, canvasHoogte)
 
 				// Achtergrond van de canvas
@@ -171,3 +173,15 @@
 </script>
 
 <canvas width="1000" height="1000" />
+
+<style>
+	canvas {
+		position: relative;
+		max-width: 100rem;
+		max-height: 100rem;
+		object-fit: contain;
+		bottom: -30%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+</style>

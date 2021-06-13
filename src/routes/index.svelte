@@ -5,7 +5,7 @@
 	import ForestTransition from '../sections/ForestTransition.svelte'
 	import ForestWalk from '../sections/ForestWalk.svelte'
 
-	import Text from '../components/Text.svelte'
+	import TextLayer from '../components/TextLayer.svelte'
 
 	import { gsap } from 'gsap'
 	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger.js'
@@ -57,33 +57,29 @@
 </header>
 <main>
 	<slot />
-	<Text>Welkom in Eenwoud.</Text>
+	<TextLayer />
 
 	<section id="foliage">
 		<Foliage />
 	</section>
 
-	<Text>
-		Eenwoud is een bos waarin de nazaten van betekenisvolle bomen proberen samen 1000 jaar te
-		overleven.
-	</Text>
-
 	<section id="forestTransition">
 		<ForestTransition />
 	</section>
 
-	<Text>Ook jij kan een boom voordragen aan Eenwoud.</Text>
-
-	{#if !walk}
-		<section id="forest">
-			<Forest />
-		</section>
-	{:else}
-		<section id="forestWalk">
-			<ForestWalk />
-		</section>
-	{/if}
+	<section id="forest" class:hidden={walk}>
+		<Forest />
+	</section>
+	<section id="forestWalk" class:hidden={!walk}>
+		<ForestWalk />
+	</section>
 </main>
+<footer>
+	Eenwoud is een project van Lobke Meekes. Lees&nbsp; <a
+		href="https://www.lobkemeekes.nl/eenwoud/"
+		target="_blank">hier</a
+	> &nbsp;meer over Eenwoud.
+</footer>
 
 <style>
 	header {
@@ -100,6 +96,10 @@
 		left: 0;
 		top: 0;
 		z-index: 0;
+	}
+
+	.hidden {
+		display: none;
 	}
 
 	main {
@@ -142,5 +142,16 @@
 		top: 0;
 		background-color: hsl(124, 79%, 27%);
 		z-index: 4;
+	}
+
+	footer {
+		position: relative;
+		padding: 1rem;
+		width: 100%;
+		display: flex;
+		z-index: 1000;
+		color: white;
+		max-width: 58rem;
+		margin: 0 auto;
 	}
 </style>

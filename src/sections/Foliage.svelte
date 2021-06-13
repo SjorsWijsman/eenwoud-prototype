@@ -19,19 +19,20 @@
 	})
 </script>
 
-<img src="./resources/images/forest-edge.png" alt="We gaan dieper het bos in" />
+<img src="./resources/images/forest-edge.webp" alt="We gaan dieper het bos in" />
 
 <style>
 	img {
 		position: absolute;
 		width: 100vw;
+		min-width: 50rem;
 		overflow-x: hidden;
 		background-color: transparent;
 		object-fit: cover;
 	}
 
 	img:nth-child(1) {
-		top: -20vh;
+		top: -10rem;
 	}
 
 	img:nth-child(2) {
