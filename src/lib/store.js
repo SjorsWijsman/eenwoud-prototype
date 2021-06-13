@@ -6,7 +6,7 @@ export const selectedThemes = writable([])
 export const walk = writable([])
 
 // Audio player
-export const play = writable(false)
+export const play = writable(true)
 export const progress = writable(0)
 export const audioIndex = writable(0)
 

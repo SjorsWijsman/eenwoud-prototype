@@ -63,6 +63,7 @@
 		border: none;
 		height: 2rem;
 		width: 2rem;
+		padding: 0;
 	}
 
 	button img {

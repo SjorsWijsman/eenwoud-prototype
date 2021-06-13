@@ -19,7 +19,7 @@
 	})
 </script>
 
-<img src="./resources/images/forest-edge.png" alt="We gaan dieper het bos in" />
+<img src="./resources/images/forest-edge.webp" alt="We gaan dieper het bos in" />
 
 <style>
 	img {

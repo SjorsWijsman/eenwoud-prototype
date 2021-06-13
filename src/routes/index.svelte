@@ -5,7 +5,7 @@
 	import ForestTransition from '../sections/ForestTransition.svelte'
 	import ForestWalk from '../sections/ForestWalk.svelte'
 
-	import Text from '../components/Text.svelte'
+	import TextLayer from '../components/TextLayer.svelte'
 
 	import { gsap } from 'gsap'
 	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger.js'
@@ -57,22 +57,15 @@
 </header>
 <main>
 	<slot />
-	<Text>Welkom in Eenwoud.</Text>
+	<TextLayer />
 
 	<section id="foliage">
 		<Foliage />
 	</section>
 
-	<Text>
-		Eenwoud is een bos waarin de nazaten van betekenisvolle bomen proberen samen 1000 jaar te
-		overleven.
-	</Text>
-
 	<section id="forestTransition">
 		<ForestTransition />
 	</section>
-
-	<Text>Ook jij kan een boom voordragen aan Eenwoud.</Text>
 
 	{#if !walk}
 		<section id="forest">
