@@ -67,15 +67,12 @@
 		<ForestTransition />
 	</section>
 
-	{#if !walk}
-		<section id="forest">
-			<Forest />
-		</section>
-	{:else}
-		<section id="forestWalk">
-			<ForestWalk />
-		</section>
-	{/if}
+	<section id="forest" class:hidden={walk}>
+		<Forest />
+	</section>
+	<section id="forestWalk" class:hidden={!walk}>
+		<ForestWalk />
+	</section>
 </main>
 
 <style>
@@ -93,6 +90,10 @@
 		left: 0;
 		top: 0;
 		z-index: 0;
+	}
+
+	.hidden {
+		display: none;
 	}
 
 	main {
