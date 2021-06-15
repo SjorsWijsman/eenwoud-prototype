@@ -120,6 +120,7 @@
 	#foliage {
 		align-items: center;
 		z-index: 2;
+		background-color: hsl(124, 63%, 34%);
 	}
 
 	#forest {
