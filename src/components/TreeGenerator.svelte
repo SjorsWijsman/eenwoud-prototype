@@ -1,178 +1,172 @@
 <script>
 	import { onMount } from 'svelte'
+	import { progress } from '$lib/store'
+
+	let branchLength,
+		branchSplitDegrees,
+		branchWidthRatio,
+		branchWidth,
+		startingPoints = [],
+		canvas,
+		ctx,
+		canvasWidth,
+		canvasHeight,
+		progressOffset = 0,
+		animationCycle = 0
+
+	const maxAnimationCycles = 10
+
+	progress.subscribe((value) => {
+		if (value - progressOffset > 1 / maxAnimationCycles) {
+			branches()
+			progressOffset += 1 / maxAnimationCycles
+			animationCycle += 1
+		} else if (value - progressOffset < 0) {
+			treeCanvas()
+			animationCycle = 0
+			progressOffset = 0
+		}
+	})
 
 	onMount(() => {
-		let animationCicle = 0
-		const canvas = document.querySelector('canvas')
-		const ctx = canvas.getContext('2d')
-		const canvasBreedte = canvas.width
-		const canvasHoogte = canvas.height
+		ctx = canvas.getContext('2d')
+		canvasWidth = canvas.width
+		canvasHeight = canvas.height
 
-		let taklengte,
-			takkenSplitsing,
-			takDikte,
-			stamDikte,
-			startPunten = []
-		let animatieSnelheid = 5
-
-		function boom() {
-			if (animationCicle == 1) {
-				return false
-			} else {
-				// Leeg de canvas
-				ctx.fillStyle = 'rgba(255, 255, 255, 0)'
-
-				ctx.fillRect(0, 0, canvasBreedte, canvasHoogte)
-
-				// Achtergrond van de canvas
-				// var gradient = ctx.createLinearGradient(0, 0, 0, 700)
-				// gradient.addColorStop(0, 'rgb(215, 255, 253)')
-				// gradient.addColorStop(0.7575757575757576, 'rgb(215, 255, 253)')
-				// gradient.addColorStop(1, 'rgb(109, 255, 116)')
-				// ctx.fillStyle = gradient
-				// ctx.fillRect(0, 0, window.innerWidth, window.innerHeight)
-
-				// Maak de stam
-				stam()
-
-				// Maak de takken
-				takken()
-
-				animationCicle++
-			}
-		}
-
-		function stam() {
-			// De lengte van de tak is een willekeurig getal tussen de 100 en 150px
-			taklengte = 100 + Math.round(Math.random() * 50)
-
-			// De dikte van de stam
-			stamDikte = 15
-
-			// Met hoeveel graden de takken splitsen (tussen 10 en 70 graden)
-			takkenSplitsing = 10 + Math.round(Math.random() * 60)
-
-			// De aflopende dikte van de takken
-			takDikte = Math.round(5 + Math.random() * 2) / 10
-
-			// Overige data over de boomstam
-			let stam = {
-				x: canvasBreedte / 2,
-				y: taklengte + 100,
-				angle: 10 + Math.round(Math.random() * 60),
-			}
-
-			// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-			// Teken de boomstam op de canvas
-			ctx.beginPath()
-
-			// Positie van de stam
-			ctx.moveTo(stam.x, canvasHoogte - 10)
-			ctx.lineTo(stam.x, canvasHoogte - stam.y)
-
-			// zet de kleur van de stam
-			ctx.strokeStyle = '#8a7362'
-
-			// zet de dikte van de stam
-			ctx.lineWidth = stamDikte
-
-			// teken de stam
-			ctx.stroke()
-
-			// update de startpunten
-			startPunten = []
-			startPunten.push(stam)
-		}
-
-		function takken() {
-			// De takLengte en takDikte dunner / kleiner maken
-			taklengte = taklengte * takDikte
-			stamDikte = stamDikte * takDikte
-			ctx.lineWidth = stamDikte
-
-			// Teken de takken op de canvas
-			ctx.beginPath()
-			const nieuweStartPunten = []
-
-			for (let i = 0; i < startPunten.length; i++) {
-				let startPunt = startPunten[i]
-
-				let takEindeLinks = berekenTakEinde(
-					startPunt.x,
-					startPunt.y,
-					startPunt.angle + takkenSplitsing,
-					taklengte,
-				)
-				let takEindeRechts = berekenTakEinde(
-					startPunt.x,
-					startPunt.y,
-					startPunt.angle - takkenSplitsing,
-					taklengte,
-				)
-				let takEindeMidden = berekenTakEinde(
-					startPunt.x,
-					startPunt.y,
-					startPunt.angle + takkenSplitsing + 35,
-					taklengte,
-				)
-
-				// takken aan de rechterkant
-				ctx.moveTo(startPunt.x, canvasHoogte - startPunt.y)
-				ctx.lineTo(takEindeLinks.x, canvasHoogte - takEindeLinks.y)
-
-				// takken aan de linkerkant
-				ctx.moveTo(startPunt.x, canvasHoogte - startPunt.y)
-				ctx.lineTo(takEindeRechts.x, canvasHoogte - takEindeRechts.y)
-
-				// takken in het midden
-				ctx.moveTo(startPunt.x, canvasHoogte - startPunt.y)
-				ctx.lineTo(takEindeMidden.x, canvasHoogte - takEindeMidden.y)
-
-				// de draaihoek van de takken berekenen
-				takEindeLinks.angle = startPunt.angle + takkenSplitsing
-				takEindeRechts.angle = startPunt.angle - takkenSplitsing
-				takEindeMidden.angle = startPunt.angle + takkenSplitsing + 35
-
-				// update de nieuwe start punten
-				nieuweStartPunten.push(takEindeLinks)
-				nieuweStartPunten.push(takEindeRechts)
-				nieuweStartPunten.push(takEindeMidden)
-			}
-
-			// Zorg dat het einde van de tak, het nieuwe startpunt wordt van de nieuwe tak
-			startPunten = nieuweStartPunten
-
-			if (taklengte < 10) {
-				ctx.strokeStyle = 'green'
-			} else {
-				ctx.strokeStyle = '#8a7362'
-			}
-
-			// Voeg de takken toe aan de canvas
-			ctx.stroke()
-
-			// animatie & framerate
-			setTimeout(() => {
-				if (taklengte > 2) {
-					window.requestAnimationFrame(takken)
-				} else {
-					window.requestAnimationFrame(boom)
-				}
-			}, 1000 / animatieSnelheid)
-		}
-
-		function berekenTakEinde(x, y, a, length) {
-			let takEindeX = x + length * Math.cos((a * Math.PI) / 180)
-			let takEindeY = y + length * Math.sin((a * Math.PI) / 180)
-			return { x: takEindeX, y: takEindeY }
-		}
-
-		boom()
+		treeCanvas()
 	})
+
+	function treeCanvas() {
+		// Leeg de canvas
+		ctx.clearRect(0, 0, canvasWidth, canvasHeight)
+
+		trunk()
+	}
+
+	function trunk() {
+		// De lengte van de tak is een willekeurig getal tussen de 100 en 150px
+		branchLength = randrange(100, 150)
+
+		// De dikte van de stam
+		branchWidth = randrange(15, 20)
+
+		// De aflopende dikte van de takken
+		branchWidthRatio = (5 + Math.random()) / 8
+
+		// Overige data over de boomstam
+		let stam = {
+			x: canvasWidth / 2,
+			y: branchLength + 100,
+			angle: randrange(10, 70),
+		}
+
+		// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+		// Teken de boomstam op de canvas
+		ctx.beginPath()
+
+		// Positie van de stam
+		ctx.moveTo(stam.x, canvasHeight - 10)
+		ctx.lineTo(stam.x, canvasHeight - stam.y)
+
+		// zet de kleur van de stam
+		ctx.strokeStyle = '#8a7362'
+
+		// zet de dikte van de stam
+		ctx.lineWidth = branchWidth
+
+		// teken de stam
+		ctx.stroke()
+
+		// update de startpunten
+		startingPoints = []
+		startingPoints.push(stam)
+	}
+
+	function branches() {
+		// De takLengte en takDikte dunner / kleiner maken
+		branchLength = branchLength * branchWidthRatio
+		branchWidth = branchWidth * branchWidthRatio
+		console.log(branchSplitDegrees)
+
+		ctx.lineWidth = branchWidth
+
+		// Teken de takken op de canvas
+		ctx.beginPath()
+		const newStartingPoints = []
+
+		// Create random amount of new branches from old starting points
+		for (let i = 0; i < startingPoints.length; i++) {
+			branchSplitDegrees = randrange(10, 70)
+			let startingPoint = startingPoints[i]
+
+			let branchEndLeft = calculateBranchEnd(
+				startingPoint.x,
+				startingPoint.y,
+				startingPoint.angle + branchSplitDegrees - 35,
+				branchLength,
+			)
+			let branchEndRight = calculateBranchEnd(
+				startingPoint.x,
+				startingPoint.y,
+				startingPoint.angle + branchSplitDegrees,
+				branchLength,
+			)
+			let branchEndMiddle = calculateBranchEnd(
+				startingPoint.x,
+				startingPoint.y,
+				startingPoint.angle + branchSplitDegrees + 35,
+				branchLength,
+			)
+
+			// takken aan de linkerkant
+			ctx.moveTo(startingPoint.x, canvasHeight - startingPoint.y)
+			ctx.lineTo(branchEndRight.x, canvasHeight - branchEndRight.y)
+
+			// takken in het midden
+			ctx.moveTo(startingPoint.x, canvasHeight - startingPoint.y)
+			ctx.lineTo(branchEndMiddle.x, canvasHeight - branchEndMiddle.y)
+
+			// takken aan de rechterkant
+			ctx.moveTo(startingPoint.x, canvasHeight - startingPoint.y)
+			ctx.lineTo(branchEndLeft.x, canvasHeight - branchEndLeft.y)
+
+			// de draaihoek van de takken berekenen
+			branchEndLeft.angle = startingPoint.angle + branchSplitDegrees
+			branchEndMiddle.angle = startingPoint.angle + branchSplitDegrees + 35
+			branchEndRight.angle = startingPoint.angle - branchSplitDegrees
+
+			// update de nieuwe start punten
+			newStartingPoints.push(branchEndLeft)
+			newStartingPoints.push(branchEndRight)
+			newStartingPoints.push(branchEndMiddle)
+		}
+
+		// Zorg dat het einde van de tak, het nieuwe startpunt wordt van de nieuwe tak
+		startingPoints = newStartingPoints
+
+		if (animationCycle > maxAnimationCycles * 0.5) {
+			ctx.strokeStyle = 'green'
+		} else {
+			ctx.strokeStyle = '#8a7362'
+		}
+
+		// Voeg de takken toe aan de canvas
+		ctx.stroke()
+	}
+
+	function calculateBranchEnd(x, y, a, length) {
+		let branchEndX = x + length * Math.cos((a * Math.PI) / 180)
+		let branchEndY = y + length * Math.sin((a * Math.PI) / 180)
+		return { x: branchEndX, y: branchEndY }
+	}
+
+	function randrange(min, max) {
+		return Math.random() * (max - min + 1) + min
+	}
 </script>
 
-<canvas width="1000" height="1000" />
+<canvas width="1000" height="1000" bind:this={canvas} />
 
 <style>
 	canvas {

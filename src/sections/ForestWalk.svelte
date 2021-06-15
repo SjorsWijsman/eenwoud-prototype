@@ -59,6 +59,7 @@
 		max-width: 60rem;
 		object-fit: cover;
 		z-index: 1;
+		overflow-x: hidden;
 	}
 
 	section :global(*) {

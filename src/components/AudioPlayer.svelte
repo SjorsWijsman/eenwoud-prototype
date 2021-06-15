@@ -70,4 +70,8 @@
 		width: 2rem;
 		height: 2rem;
 	}
+	button img {
+		width: 2rem;
+		height: 2rem;
+	}
 </style>
