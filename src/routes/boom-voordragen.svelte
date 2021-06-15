@@ -267,7 +267,7 @@
 		background-repeat: repeat-y, no-repeat, no-repeat; */
 
 		box-shadow: 0px 0px 5px #000;
-		overflow-x: scroll;
+		overflow-x: hidden;
 		line-height: 10px;
 		padding: 50px;
 		position: relative;
