@@ -1,15 +1,17 @@
 <script>
 	import { supabase } from '$lib/db'
+	import { onMount } from 'svelte'
 
 	let submit
 
-	let fullName = 'Test Naam',
-		mailAdress = 'test@email.com',
+	let firstName = '',
+		lastName = '',
+		mailAdress = '',
 		treeLocation = '41.40338, 2.17403',
-		treeMeaning = 'Deze boom betekent veel voor mij.',
-		treeReason = 'Omdat ik dit een hele gave boom vind.',
-		treeAge = 4,
-		tips = 'Meer bomen',
+		treeMeaning = '',
+		treeReason = '',
+		treeAge = 0,
+		tips = '',
 		keepMeUpdated = true,
 		photoEnvironment,
 		photoDuo
@@ -77,7 +79,6 @@
 			}),
 		})
 	})
-
 </script>
 
 <svelte:head>
@@ -148,15 +149,8 @@
 					id="photoEnvironment"
 					name="photoEnvironment"
 					accept="image/png, image/jpeg"
-					bind:files={photoEnvironmentImage}
-					on:change={() =>
-						imageToBase64(
-							photoEnvironmentImage,
-							(result) => {
-								photoEnvironment = result
-							},
-							getFileData(event),
-						)}
+					bind:files={photoEnvironment}
+					on:change={getFileData}
 				/>
 				<p>Ik heb ook nog een foto toegevoegd waar ik samen met de boom op de foto sta</p>
 				<label for="photoDuo" class="fotolabel">Klik hier om de foto te uploaden</label>
@@ -165,15 +159,8 @@
 					id="photoDuo"
 					name="photoDuo"
 					accept="image/png, image/jpeg"
-					bind:files={photoDuoImage}
-					on:change={() =>
-						imageToBase64(
-							photoDuoImage,
-							(result) => {
-								photoDuo = result
-							},
-							getFileData(event),
-						)}
+					bind:files={photoDuo}
+					on:change={getFileData}
 				/>
 			</section>
 		{:else if page == 4}
@@ -392,5 +379,4 @@
 		height: 400px;
 		width: 300px;
 	}
-
 </style>
