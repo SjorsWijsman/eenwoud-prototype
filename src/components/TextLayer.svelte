@@ -12,7 +12,7 @@
 		Ook jij kan een boom voordragen aan Eenwoud.
 		<a href="./boom-voordragen" target="_blank">Draag nu een boom voor</a>
 	</p>
-	<p>Maak hier een wandeling door de digitale versie van Eenwoud \/</p>
+	<p>Maak hier een wandeling door de digitale versie van Eenwoud</p>
 </section>
 
 <style>
