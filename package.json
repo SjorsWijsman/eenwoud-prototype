@@ -37,5 +37,7 @@
 		"uuid": "^8.3.2"
 	},
 	"type": "module",
-	"dependencies": {}
+	"dependencies": {
+		"rollup-plugin-css-only": "^3.1.0"
+	}
 }

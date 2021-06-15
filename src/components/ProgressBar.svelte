@@ -1,10 +1,9 @@
 <script>
 	import { walk, progress, audioIndex } from '$lib/store'
-	import { fly } from 'svelte/transition'
 </script>
 
 {#if $walk.length > 0}
-	<section transition:fly={{ y: 200, duration: 500 }}>
+	<section>
 		<div style="grid-template-columns: repeat(1fr, {$walk.length});">
 			{#each $walk as story}
 				<p>{story.title}</p>

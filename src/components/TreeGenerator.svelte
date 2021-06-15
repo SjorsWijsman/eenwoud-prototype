@@ -1,8 +1,15 @@
 <script>
 	import { onMount } from 'svelte'
+	import { play } from '$lib/store'
 
 	onMount(() => {
+		$: console.log($play)
+		if (play !== false) {
+			$: console.log($play)
+		}
+
 		let animationCicle = 0
+		let playState = false
 		const canvas = document.querySelector('canvas')
 		const ctx = canvas.getContext('2d')
 		const canvasBreedte = canvas.width
@@ -19,24 +26,18 @@
 			if (animationCicle == 1) {
 				return false
 			} else {
-				// Leeg de canvas
-				ctx.fillRect(0, 0, canvasBreedte, canvasHoogte)
+				if (playState == true) {
+					// Leeg de canvas
+					ctx.fillRect(0, 0, canvasBreedte, canvasHoogte)
 
-				// Achtergrond van de canvas
-				// var gradient = ctx.createLinearGradient(0, 0, 0, 700)
-				// gradient.addColorStop(0, 'rgb(215, 255, 253)')
-				// gradient.addColorStop(0.7575757575757576, 'rgb(215, 255, 253)')
-				// gradient.addColorStop(1, 'rgb(109, 255, 116)')
-				// ctx.fillStyle = gradient
-				// ctx.fillRect(0, 0, window.innerWidth, window.innerHeight)
+					// Maak de stam
+					stam()
 
-				// Maak de stam
-				stam()
+					// Maak de takken
+					takken()
 
-				// Maak de takken
-				takken()
-
-				animationCicle++
+					animationCicle++
+				}
 			}
 		}
 
@@ -170,4 +171,14 @@
 	})
 </script>
 
-<canvas width="1000" height="1000" />
+<canvas width="1440" height="500" />
+
+<style>
+	canvas {
+		position: absolute;
+		z-index: -1;
+		bottom: 0vh;
+		left: 0;
+		width: 100%;
+	}
+</style>
