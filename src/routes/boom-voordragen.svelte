@@ -1,6 +1,5 @@
 <script>
 	import { supabase } from '$lib/db'
-	import { onMount } from 'svelte'
 
 	let submit
 
@@ -25,8 +24,7 @@
 		const { data, error } = await fetch('/api/submitTree', {
 			method: 'POST',
 			body: JSON.stringify({
-				firstName,
-				lastName,
+				fullName: `${firstName} ${lastName}`,
 				mailAdress,
 				treeLocation,
 				treeMeaning,
@@ -64,38 +62,16 @@
 		const name = event.target.files[0].name
 		event.target.labels[0].innerText = name
 	}
-
-	onMount(() => {
-		var map = new ol.Map({
-			target: 'map',
-			layers: [
-				new ol.layer.Tile({
-					source: new ol.source.OSM(),
-				}),
-			],
-			view: new ol.View({
-				center: ol.proj.fromLonLat([37.41, 8.82]),
-				zoom: 4,
-			}),
-		})
-	})
 </script>
 
 <svelte:head>
 	<title>Draag een boom voor - Eenwoud</title>
-	<link
-		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css"
-		type="text/css"
-	/>
-	<script
-		src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
 </svelte:head>
 
 <main>
 	<slot />
 
-	<form on:submit|preventDefault={handleSubmit} method="post">
+	<form on:submit|preventDefault={() => (submit = true)} method="post">
 		{#if page == 1}
 			<section id="part1">
 				<label for="firstname">Ik,</label>
@@ -186,7 +162,6 @@
 					placeholder="52.132633.5.291266"
 					bind:value={treeLocation}
 				/>
-				<div id="map" class="map" />
 			</section>
 		{:else if page == 5}
 			<section id="part5">
@@ -217,14 +192,30 @@
 					>Graag zou ik op de hoogte gehouden worden van de ontwikkelingen rondom Eenwoud</label
 				>
 				<input
-					required
 					type="checkbox"
 					name="keepMeUpdated"
 					id="keepMeUpdated"
-					bind:value={keepMeUpdated}
-				/> <span>Ja</span><br /><br />
-				<button type="submit" class="aanmelden">Boom aanmelden</button>
+					bind:checked={keepMeUpdated}
+				/>
+				<span>Ja</span><br /><br />
+				<button type="submit" class="aanmelden" on:click={() => (submit = false)}
+					>Boom aanmelden</button
+				>
 			</section>
+		{/if}
+		{#if submit}
+			{#await handleSubmit()}
+				<p>Data versturen...</p>
+			{:then data}
+				{#if photoUploadProgress !== photos.length}
+					<p>Foto's verstuurd: {photoUploadProgress}/{photos.length}</p>
+				{:else}
+					<p>Je voordracht is succesvol verstuurd!</p>
+				{/if}
+			{:catch error}
+				<p>Er is iets mis gegaan bij het ophalen van de data. Probeer het opnieuw:</p>
+				<pre>{error.message}</pre>
+			{/await}
 		{/if}
 		{#if page != 1}
 			<button
@@ -240,28 +231,11 @@
 					page++
 				}}>Volgende</button
 			>{/if}
-		<img src="./static/resources/images/eenwoudlogo.svg" />
+		<img src="./static/resources/images/eenwoudlogo.svg" alt="Eenwoud Logo" />
 	</form>
-	{#if submit}
-		{#await handleSubmit()}
-			<p>Data versturen...</p>
-		{:then data}
-			{#if photoUploadProgress !== photos.length}
-				<p>Foto's verstuurd: {photoUploadProgress}/{photos.length}</p>
-			{:else}
-				<p>Je voordracht is succesvol verstuurd! {photoUploadProgress}/{photos.length}</p>
-			{/if}
-		{:catch error}
-			<p>Er is iets mis gegaan bij het ophalen van de data. Probeer het opnieuw:</p>
-			<pre>{error.message}</pre>
-		{/await}
-	{/if}
 </main>
 
 <style>
-	@import url('https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css');
-	@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
-
 	form input,
 	form p,
 	form textarea,
@@ -373,10 +347,5 @@
 		visibility: hidden;
 		position: absolute;
 		z-index: -100;
-	}
-
-	.map {
-		height: 400px;
-		width: 300px;
 	}
 </style>

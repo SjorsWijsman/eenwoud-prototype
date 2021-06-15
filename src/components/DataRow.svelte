@@ -81,8 +81,7 @@
 			<p class="title">{displayedData.mailAdress}</p>
 			<input class="value" type="text" bind:value={mailAdress} />
 			<p class="title">{displayedData.keepMeUpdated}</p>
-			<input class="value" type="text" bind:value={keepMeUpdated} />
-
+			<input class="value" type="checkbox" bind:checked={keepMeUpdated} />
 			<h3>Voorgedragen Boom</h3>
 			<p class="title">{displayedData.treeMeaning}</p>
 			<textarea class="value" bind:value={treeMeaning} />
