@@ -50,7 +50,7 @@
 	})
 </script>
 
-<img class="eenwoud-logo" src="./resources/images/eenwoud-logo.png" alt="Eenwoud" />
+<img class="eenwoud-logo" src="./resources/images/eenwoud-logo.svg" alt="Eenwoud" />
 <div>
 	<img
 		class="cloud"

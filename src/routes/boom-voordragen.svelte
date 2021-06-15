@@ -231,7 +231,7 @@
 					page++
 				}}>Volgende</button
 			>{/if}
-		<img src="./resources/images/eenwoudlogo.svg" alt="Eenwoud Logo" />
+		<img src="./resources/images/eenwoud-logo-stamp.svg" alt="Eenwoud Logo" />
 	</form>
 </main>
 
