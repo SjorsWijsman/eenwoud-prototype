@@ -5,8 +5,8 @@ html {
   --color-green: hsla(117, 100%, 34%, 1);
   --color-red: hsla(0, 100%, 34%, 1);
   --color-blue: hsla(207, 100%, 31%, 1);
-  --color-light-grey: hsla(240, 14%, 95%, 0.8);
-  --color-light-grey-lighter: hsla(240, 14%, 95%, 0.3);
+  --color-light-grey: hsl(240, 10%, 96%);
+  --color-light-grey-lighter: hsl(240, 5%, 98%);
   font-size: calc(60% + 0.8vmin);
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;

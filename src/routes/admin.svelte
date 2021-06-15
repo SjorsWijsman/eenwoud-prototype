@@ -64,9 +64,8 @@
 		align-items: baseline;
 		margin-bottom: 1rem;
 		background-color: var(--color-white);
-		position: sticky;
-		top: 0;
-		padding: 1rem 2rem;
+		padding: 0 2rem;
+		padding-top: 2rem;
 		z-index: 1;
 	}
 
