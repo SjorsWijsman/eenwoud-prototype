@@ -16,7 +16,7 @@
 	async function getData() {
 		const { data, error } = await supabase.from('bomen').select()
 
-		if (error) throw new Error(error)
+		if (error) throw new Error(error.message)
 
 		return data
 	}
@@ -37,7 +37,7 @@
 			<DataTable {data} />
 		{:catch error}
 			<p>Er is iets mis gegaan bij het ophalen van de data. Probeer het opnieuw:</p>
-			<pre>{error.message}</pre>
+			<pre>{error}</pre>
 		{/await}
 	{:else}
 		<form on:submit|preventDefault={signIn}>
@@ -64,9 +64,8 @@
 		align-items: baseline;
 		margin-bottom: 1rem;
 		background-color: var(--color-white);
-		position: sticky;
-		top: 0;
-		padding: 1rem 2rem;
+		padding: 0 2rem;
+		padding-top: 2rem;
 		z-index: 1;
 	}
 

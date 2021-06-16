@@ -138,6 +138,10 @@
 		align-items: baseline;
 		grid-template-columns: 2fr 1fr max-content;
 		margin-bottom: -0.5rem;
+		position: sticky;
+		top: 0;
+		background-color: inherit;
+		z-index: 1;
 	}
 
 	article div:first-child :last-child {

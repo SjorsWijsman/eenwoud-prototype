@@ -11,30 +11,34 @@
 
 	onMount(() => {
 		walk.subscribe((currentWalk) => {
-			play.set(false)
+			$play = false
 			$audioIndex = 0
 			$progress = 0
 			if (currentWalk.length > 0) {
-				audioElement.src = `./resources/audio/stories/${currentWalk[$audioIndex].audioSrc}`
+				audioElement.src = currentWalk[$audioIndex].audioLink
 			}
 		})
 	})
 
 	function playPause() {
-		play.set(!$play)
+		$play = !$play
 		$play ? audioElement.play() : audioElement.pause()
 	}
 
 	function nextAudio() {
 		$audioIndex += 1
 		$progress = 0
-		audioElement.src = `./resources/audio/stories/${$walk[$audioIndex].audioSrc}`
+		// Played every audio file in currentWalk
+		if ($audioIndex >= $walk.length) {
+			$audioIndex = 0
+		}
+		audioElement.src = $walk[$audioIndex].audioLink
 		audioElement.play()
 	}
 
 	function setProgress() {
 		if (audioElement) {
-			progress.set((1 / duration) * currentTime)
+			$progress = (1 / duration) * currentTime
 		}
 	}
 </script>
