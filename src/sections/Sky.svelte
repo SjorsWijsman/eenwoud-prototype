@@ -72,8 +72,8 @@
 		top: 45%;
 		left: 50%;
 		transform: translateX(-50%);
-		width: 90vw;
-		max-width: 28rem;
+		width: 28rem;
+		max-width: 90vw;
 	}
 
 	.pointer {

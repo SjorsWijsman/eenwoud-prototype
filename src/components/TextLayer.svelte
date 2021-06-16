@@ -9,8 +9,7 @@
 		overleven.
 	</p>
 	<p>
-		Ook jij kan een boom voordragen aan Eenwoud.
-		<a href="./boom-voordragen" target="_blank">Draag nu een boom voor</a>
+		Ook jij kan een <a href="./boom-voordragen" target="_blank">boom voordragen</a> aan Eenwoud.
 	</p>
 	<p>Maak hier een wandeling door de digitale versie van Eenwoud</p>
 </section>

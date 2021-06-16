@@ -20,22 +20,27 @@
 </script>
 
 <img src="./resources/images/forest-edge.webp" alt="We gaan dieper het bos in" />
+<img src="./resources/images/leaves.png" alt="We gaan dieper het bos in" />
 
 <style>
 	img {
 		position: absolute;
-		width: 100vw;
-		min-width: 50rem;
+		width: 100%;
+		max-width: 100vw;
 		overflow-x: hidden;
 		background-color: transparent;
 		object-fit: cover;
 	}
 
 	img:nth-child(1) {
-		top: -10rem;
+		z-index: 5;
+		top: 0;
+		transform: translateY(-50%);
 	}
 
 	img:nth-child(2) {
-		top: 0;
+		z-index: 4;
+		height: 100%;
+		top: 5rem;
 	}
 </style>

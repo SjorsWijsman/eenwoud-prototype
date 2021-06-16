@@ -9,7 +9,6 @@
 		treeLocation = '41.40338, 2.17403',
 		treeMeaning = '',
 		treeReason = '',
-		treeType = '',
 		treeAge = 0,
 		tips = '',
 		keepMeUpdated = true,
@@ -30,7 +29,6 @@
 				treeLocation,
 				treeMeaning,
 				treeReason,
-				treeType,
 				treeAge,
 				tips,
 				keepMeUpdated,
@@ -95,8 +93,8 @@
 					bind:value={lastName}
 					placeholder=" Achternaam"
 				/>
-				<p>Draag mijn boom voor zodat de nazaten kunnen opgroeien in Eenwoud.</p>
-				<label for="treeReason">Mijn motivatie om deze boom voor te dragen is</label>
+				<p>draag mijn boom voor, zodat de nazaten kunnen opgroeien in Eenwoud.</p>
+				<label for="treeReason">De reden dat ik hiervoor gekozen heb is:</label>
 				<textarea
 					required
 					type="text"
@@ -108,7 +106,7 @@
 			</section>
 		{:else if page == 2}
 			<section id="part2">
-				<label for="treeMeaning"> Voor mij persoonlijk betekent deze boom ...</label>
+				<label for="treeMeaning"> Deze boom heeft heel betekenis voor mij omdat</label>
 				<textarea
 					required
 					type="text"
@@ -143,18 +141,9 @@
 			</section>
 		{:else if page == 4}
 			<section id="part4">
-			<label for="treeType">Tot slot nog wat praktische informatie over mijn boom.
-Het soort of type boom is</label>
-				<input
-					required
-					type="text"
-					name="treeType"
-					id="treeType"
-					bind:value={treeType}
-					placeholder="Vul de naam van de boom in"
-				/>
 				<label for="treeAge"
-					>De leeftijd van de boom is ongeveer </label
+					>Tot slot zal ik nog wat gegevens meesturen over de boom waar je miscchien nog wat mee kan
+					doen in de toekomst. De leeftijd van de boom is ongeveer</label
 				>
 				<input
 					required
@@ -164,7 +153,7 @@ Het soort of type boom is</label>
 					bind:value={treeAge}
 					placeholder="Vul de leeftijd van de boom in"
 				/>
-				<label for="treeLocation"> En de coördinaten van de boomlocatie zijn </label>
+				<label for="treeLocation"> De coordinaten van de boom zijn </label>
 				<input
 					required
 					type="text"
@@ -176,8 +165,7 @@ Het soort of type boom is</label>
 			</section>
 		{:else if page == 5}
 			<section id="part5">
-				<label for="email">Mijn mailadres zodat je contact met mij kan opnemen over de nazaten of het maken van een
-audioverhaal</label>
+				<label for="email">Mocht je mij nog willen bereiken kun je me mailen naar</label>
 				<input
 					required
 					type="email"
@@ -188,7 +176,7 @@ audioverhaal</label>
 				/>
 				<br /><br />
 				<p>P.S.</p>
-				<label for="tips">Een suggestie of tip van mij (dit is niet verplicht) </label>
+				<label for="tips">Ik zou je dit nog wel willen zeggen (dit is niet verplicht): </label>
 				<textarea
 					required
 					type="text"
@@ -201,7 +189,7 @@ audioverhaal</label>
 		{:else if page == 6}
 			<section id="part6">
 				<label for="keepMeUpdated"
-					>Ik blijf graag op de hoogte van de ontwikkelingen rondom Eenwoud.</label
+					>Graag zou ik op de hoogte gehouden worden van de ontwikkelingen rondom Eenwoud</label
 				>
 				<input
 					type="checkbox"
