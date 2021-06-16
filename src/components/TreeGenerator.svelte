@@ -16,7 +16,11 @@
 
 	progress.subscribe((value) => {
 		if (value - progressOffset > 1 / maxAnimationCycles) {
-			branches()
+			if (animationCycle === 0) {
+				trunk()
+			} else {
+				branches()
+			}
 			progressOffset += 1 / maxAnimationCycles
 			animationCycle += 1
 		} else if (value - progressOffset < 0) {
@@ -37,8 +41,6 @@
 	function treeCanvas() {
 		// Leeg de canvas
 		ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-		trunk()
 	}
 
 	function trunk() {
