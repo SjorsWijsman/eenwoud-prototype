@@ -6,8 +6,13 @@
 	let audioElement
 	let duration
 	let currentTime
+	let currentWalk
 
 	$: currentTime, setProgress()
+
+	walk.subscribe((value) => {
+		currentWalk = value
+	})
 
 	onMount(() => {
 		walk.subscribe((currentWalk) => {
@@ -28,6 +33,9 @@
 	function nextAudio() {
 		$audioIndex += 1
 		$progress = 0
+		if ($audioIndex >= currentWalk.length) {
+			$audioIndex = 0
+		}
 		audioElement.src = currentWalk[$audioIndex].audioLink
 		audioElement.play()
 	}
