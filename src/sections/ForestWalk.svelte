@@ -1,26 +1,24 @@
 <script>
 	import AudioPlayer from '../components/AudioPlayer.svelte'
 	import TreeGenerator from '../components/TreeGenerator.svelte'
+	import { supabase } from '$lib/db'
 
-	import { stories, walk } from '$lib/store'
-	import { onMount } from 'svelte'
+	import { walk } from '$lib/store'
 
-	onMount(() => {
-		fetch(`resources/data/stories.json`)
-			.then((response) => response.json())
-			.then((storiesData) => {
-				stories.set(storiesData)
-				generateWalk()
-			})
-			.catch((error) => {
-				console.log(error)
-				throw new Error(error)
-			})
-	})
+	async function getData() {
+		const { data, error } = await supabase.from('bomen').select()
+
+		if (error) throw new Error(error.message)
+
+		generateWalk(data)
+
+		return data
+	}
 
 	// Generate a new walk from selected themes
-	function generateWalk() {
-		let availableStories = [...$stories]
+	function generateWalk(data) {
+		let availableStories = data.filter((tree) => tree.audioLink && tree.title)
+
 		let newWalk = []
 
 		const maxStoriesCount = 3
@@ -44,8 +42,15 @@
 </script>
 
 <section>
-	<TreeGenerator />
-	<AudioPlayer />
+	{#await getData()}
+		<p>Audioverhalen worden opgehaald...</p>
+	{:then data}
+		<TreeGenerator />
+		<AudioPlayer />
+	{:catch error}
+		<p>Er is iets mis gegaan bij het ophalen van de data. Laad de pagina opnieuw:</p>
+		<pre>{error}</pre>
+	{/await}
 </section>
 <img src="../resources/images/forest-path2.webp" alt="" />
 

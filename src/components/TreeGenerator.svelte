@@ -87,7 +87,6 @@
 		// De takLengte en takDikte dunner / kleiner maken
 		branchLength = branchLength * branchWidthRatio
 		branchWidth = branchWidth * branchWidthRatio
-		console.log(branchSplitDegrees)
 
 		ctx.lineWidth = branchWidth
 

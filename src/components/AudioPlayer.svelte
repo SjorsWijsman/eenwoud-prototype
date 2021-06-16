@@ -15,7 +15,7 @@
 			$audioIndex = 0
 			$progress = 0
 			if (currentWalk.length > 0) {
-				audioElement.src = `./resources/audio/stories/${currentWalk[$audioIndex].audioSrc}`
+				audioElement.src = currentWalk[$audioIndex].audioLink
 			}
 		})
 	})
@@ -28,7 +28,7 @@
 	function nextAudio() {
 		$audioIndex += 1
 		$progress = 0
-		audioElement.src = `./resources/audio/stories/${$walk[$audioIndex].audioSrc}`
+		audioElement.src = currentWalk[$audioIndex].audioLink
 		audioElement.play()
 	}
 
