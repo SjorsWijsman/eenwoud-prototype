@@ -261,7 +261,7 @@
 	}
 
 	main {
-		background-image: url('../../resources/images/tree-background.webp');
+		background-image: url('../../../resources/images/tree-background.webp');
 		background-size: cover;
 		background-position: center center;
 		min-height: 100vh;
