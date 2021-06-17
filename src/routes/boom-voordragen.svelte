@@ -11,6 +11,7 @@
 		treeReason = '',
 		treeAge = 0,
 		tips = '',
+		treeType = '',
 		keepMeUpdated = true,
 		photoEnvironment,
 		photoDuo
@@ -31,6 +32,7 @@
 				treeReason,
 				treeAge,
 				tips,
+				treeType,
 				keepMeUpdated,
 			}),
 			headers: { 'content-type': 'application/json' },
@@ -115,6 +117,15 @@
 					bind:value={treeMeaning}
 					placeholder="Beschrijf waarom deze boom zo veel voor je betekent."
 				/>
+				<label for="treeType"> Wat voor soort boom is het? </label>
+				<textarea
+					required
+					type="text"
+					name="treeType"
+					id="treeType"
+					bind:value={treeType}
+					placeholder="Boomsoort"
+				/>
 			</section>
 		{:else if page == 3}
 			<section id="part3">
@@ -198,9 +209,13 @@
 					bind:checked={keepMeUpdated}
 				/>
 				<span>Ja</span><br /><br />
-				<button type="submit" class="aanmelden" on:click={() => (submit = false)}
-					>Boom aanmelden</button
-				>
+				{#if firstName && lastName && mailAdress && treeLocation && treeMeaning && treeReason && treeAge && treeType}
+					<button type="submit" class="aanmelden" on:click={() => (submit = false)}
+						>Boom aanmelden</button
+					>
+				{:else}
+					<p>Je hebt nog niet alles ingevuld.</p>
+				{/if}
 			</section>
 		{/if}
 		{#if submit}
