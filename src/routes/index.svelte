@@ -43,7 +43,7 @@
 		})
 		// Full transitioned
 		tl.to('#forestTransition', {
-			x: '-220vw',
+			x: '-250vw',
 			duration: 1,
 		})
 	})

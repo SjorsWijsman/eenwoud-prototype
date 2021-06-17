@@ -1,4 +1,4 @@
-<img src="./resources/images/tree-transition.png" alt="" />
+<img src="./resources/images/tree-transition.webp" alt="" />
 
 <style>
 	img {

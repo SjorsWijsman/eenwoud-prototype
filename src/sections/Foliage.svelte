@@ -19,16 +19,16 @@
 	})
 </script>
 
-<img class="top" src="./resources/images/forest-edge.png" alt="We gaan dieper het bos in" />
+<img class="top" src="./resources/images/forest-edge.webp" alt="We gaan dieper het bos in" />
 <div>
-	<img class="center" src="./resources/images/forest-edge-2.png" alt="We gaan dieper het bos in" />
+	<img class="center" src="./resources/images/forest-edge-2.webp" alt="We gaan dieper het bos in" />
 	<img
 		class="fill"
-		src="./resources/images/foliage-background.png"
+		src="./resources/images/foliage-background.webp"
 		alt="We gaan dieper het bos in"
 	/>
 </div>
-<img class="bottom" src="./resources/images/bladerdek-1.png" alt="We gaan dieper het bos in" />
+<img class="bottom" src="./resources/images/bladerdek-1.webp" alt="We gaan dieper het bos in" />
 
 <style>
 	div {
