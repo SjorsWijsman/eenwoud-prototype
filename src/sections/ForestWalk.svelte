@@ -1,9 +1,13 @@
 <script>
+	import { fly } from 'svelte/transition'
+
 	import AudioPlayer from '../components/AudioPlayer.svelte'
 	import TreeGenerator from '../components/TreeGenerator.svelte'
 	import { supabase } from '$lib/db'
 
 	import { walk } from '$lib/store'
+
+	let popup = false
 
 	async function getData() {
 		const { data, error } = await supabase.from('bomen').select()
@@ -43,14 +47,24 @@
 
 <section>
 	{#await getData()}
-		<p>Audioverhalen worden opgehaald...</p>
+		<div>
+			<p>Audioverhalen worden opgehaald...</p>
+		</div>
 	{:then data}
 		<TreeGenerator />
-		<AudioPlayer />
+		<AudioPlayer bind:popup />
 	{:catch error}
-		<p>Er is iets mis gegaan bij het ophalen van de data. Laad de pagina opnieuw:</p>
-		<pre>{error}</pre>
+		<div>
+			<p>Er is iets mis gegaan bij het ophalen van de data. Laad de pagina opnieuw:</p>
+			<pre>{error}</pre>
+		</div>
 	{/await}
+	{#if popup}
+		<div transition:fly={{ y: -100, duration: 1000 }}>
+			<p>Geinspireerd door de verhalen van anderen?</p>
+			<a href="./boom-voordragen" target="_blank">Draag nu ook een boom voor bij Eenwoud!</a>
+		</div>
+	{/if}
 </section>
 <img src="../resources/images/forest-path2.webp" alt="" />
 
@@ -64,7 +78,7 @@
 		max-width: 60rem;
 		object-fit: cover;
 		z-index: 1;
-		overflow-x: hidden;
+		overflow: hidden;
 	}
 
 	section :global(*) {
@@ -74,6 +88,7 @@
 	img {
 		min-width: 100vw;
 		min-height: 100vh;
+		max-width: 100vw;
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
@@ -81,5 +96,13 @@
 		top: 0;
 		left: 0;
 		z-index: 0;
+	}
+
+	div {
+		position: absolute;
+		left: 50%;
+		top: 20%;
+		transform: translate(-50%, -50%);
+		text-align: center;
 	}
 </style>

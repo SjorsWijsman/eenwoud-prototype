@@ -11,6 +11,7 @@
 		treeReason,
 		treeAge,
 		treeLocation,
+		treeType,
 		tips,
 		timestamp,
 		title,
@@ -46,6 +47,7 @@
 		treeLocation: 'Boom locatie',
 		treeMeaning: 'Boom betekenis',
 		treeReason: 'Reden van voordracht',
+		treeType: 'Boomsoort',
 		title: 'Titel',
 		status: 'Huidige status',
 		audioLink: 'Link naar audioverhaal',
@@ -91,6 +93,8 @@
 			<input class="value" type="number" bind:value={treeAge} />
 			<p class="title">{displayedData.treeLocation}</p>
 			<input class="value" type="text" bind:value={treeLocation} />
+			<p class="title">{displayedData.treeType}</p>
+			<input class="value" type="text" bind:value={treeType} />
 
 			<h3>Foto's</h3>
 			<p class="title">{displayedData.photoDuo}</p>

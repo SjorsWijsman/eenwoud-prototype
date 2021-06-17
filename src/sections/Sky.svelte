@@ -54,13 +54,13 @@
 <div>
 	<img
 		class="cloud"
-		src="./resources/images/cloud1.png"
+		src="./resources/images/cloud1.webp"
 		alt="Er hangt een blauwe lucht boven Eenwoud"
 	/>
-	<img class="cloud" src="./resources/images/cloud2.png" alt="De wolken komen langzaam langs" />
+	<img class="cloud" src="./resources/images/cloud2.webp" alt="De wolken komen langzaam langs" />
 	<img
 		class="cloud"
-		src="./resources/images/cloud3.png"
+		src="./resources/images/cloud3.webp"
 		alt="Er is onderaan een bladerdek te zien"
 	/>
 </div>
@@ -72,8 +72,8 @@
 		top: 45%;
 		left: 50%;
 		transform: translateX(-50%);
-		width: 90vw;
-		max-width: 28rem;
+		width: 28rem;
+		max-width: 90vw;
 	}
 
 	.pointer {
