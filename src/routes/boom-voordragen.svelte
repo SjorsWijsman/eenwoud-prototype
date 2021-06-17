@@ -246,7 +246,7 @@
 	}
 
 	main {
-		background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/2c/Tulip_Tree_Liriodendron_tulipifera_Trunk_Bark_3000px.jpg');
+		background-image: url('./resources/images/tree-background.jpeg');
 		background-size: cover;
 		background-position: center center;
 		min-height: 100vh;

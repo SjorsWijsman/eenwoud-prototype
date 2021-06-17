@@ -19,10 +19,27 @@
 	})
 </script>
 
-<img src="./resources/images/forest-edge.webp" alt="We gaan dieper het bos in" />
-<img src="./resources/images/leaves.png" alt="We gaan dieper het bos in" />
+<img class="top" src="./resources/images/forest-edge.png" alt="We gaan dieper het bos in" />
+<div>
+	<img class="center" src="./resources/images/forest-edge-2.png" alt="We gaan dieper het bos in" />
+	<img
+		class="fill"
+		src="./resources/images/foliage-background.png"
+		alt="We gaan dieper het bos in"
+	/>
+</div>
+<img class="bottom" src="./resources/images/bladerdek-1.png" alt="We gaan dieper het bos in" />
 
 <style>
+	div {
+		position: relative;
+		height: 100vh;
+		width: 100%;
+		overflow: hidden;
+		left: 0;
+		background-color: red;
+	}
+
 	img {
 		position: absolute;
 		width: 100%;
@@ -32,15 +49,25 @@
 		object-fit: cover;
 	}
 
-	img:nth-child(1) {
-		z-index: 5;
+	.top {
+		z-index: 2;
 		top: 0;
 		transform: translateY(-50%);
 	}
 
-	img:nth-child(2) {
+	.center {
+		z-index: 3;
+		top: 0;
+	}
+
+	.bottom {
 		z-index: 4;
+		top: 100%;
+		transform: translateY(-50%);
+	}
+
+	.fill {
+		z-index: 1;
 		height: 100%;
-		top: 5rem;
 	}
 </style>
