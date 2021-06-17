@@ -24,12 +24,13 @@
 				start: `top+=${window.innerHeight / 2} top`,
 				end: `+=${window.innerHeight * 2}`,
 				scrub: true,
+				ease: 'linear',
 				// markers: {startColor: "white", endColor: "red", fontSize: "12px"},
 			},
 		})
 		// Start transition to fill screen
 		tl.to('#forestTransition', {
-			x: '-100vmax',
+			x: '-120vw',
 			duration: 1,
 		})
 		// Swap out ForestWalk with Forest
@@ -42,7 +43,7 @@
 		})
 		// Full transitioned
 		tl.to('#forestTransition', {
-			x: '-200vmax',
+			x: '-250vw',
 			duration: 1,
 		})
 	})
@@ -114,18 +115,18 @@
 		justify-content: center;
 		height: 100vh;
 		z-index: 1;
-		background-color: rgba(0, 0, 0, 0);
+		/* background-color: rgba(0, 0, 0, 0); */
 	}
 
 	#foliage {
 		align-items: center;
 		z-index: 2;
-		background-color: hsl(124, 63%, 34%);
+		/* background-color: hsl(124, 63%, 34%); */
 	}
 
 	#forest {
 		min-height: 500vh;
-		background-color: hsl(34, 80%, 27%);
+		/* background-color: hsl(34, 80%, 27%); */
 	}
 
 	#forestWalk {
@@ -141,7 +142,7 @@
 		min-width: 100vmax;
 		left: 100vw;
 		top: 0;
-		background-color: hsl(124, 79%, 27%);
+		/* background-color: hsl(124, 79%, 27%); */
 		z-index: 4;
 	}
 

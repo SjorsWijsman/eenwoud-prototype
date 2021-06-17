@@ -3,6 +3,8 @@
 	import ProgressBar from '../components/ProgressBar.svelte'
 	import { walk, play, audioIndex, progress } from '$lib/store'
 
+	export let popup
+
 	let audioElement
 	let duration
 	let currentTime
@@ -32,6 +34,7 @@
 		if ($audioIndex >= $walk.length) {
 			$audioIndex = 0
 		}
+		popup = true
 		audioElement.src = $walk[$audioIndex].audioLink
 		audioElement.play()
 	}

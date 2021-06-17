@@ -9,8 +9,6 @@
 		startingPoints = [],
 		canvas,
 		ctx,
-		canvasWidth,
-		canvasHeight,
 		progressOffset = 0,
 		animationCycle = 0
 
@@ -18,7 +16,11 @@
 
 	progress.subscribe((value) => {
 		if (value - progressOffset > 1 / maxAnimationCycles) {
-			branches()
+			if (animationCycle === 0) {
+				trunk()
+			} else {
+				branches()
+			}
 			progressOffset += 1 / maxAnimationCycles
 			animationCycle += 1
 		} else if (value - progressOffset < 0) {
@@ -30,17 +32,15 @@
 
 	onMount(() => {
 		ctx = canvas.getContext('2d')
-		canvasWidth = canvas.width
-		canvasHeight = canvas.height
+		canvas.width = window.innerWidth
+		canvas.height = window.innerHeight
 
 		treeCanvas()
 	})
 
 	function treeCanvas() {
 		// Leeg de canvas
-		ctx.clearRect(0, 0, canvasWidth, canvasHeight)
-
-		trunk()
+		ctx.clearRect(0, 0, canvas.width, canvas.height)
 	}
 
 	function trunk() {
@@ -55,7 +55,7 @@
 
 		// Overige data over de boomstam
 		let stam = {
-			x: canvasWidth / 2,
+			x: canvas.width / 2,
 			y: branchLength + 100,
 			angle: randrange(10, 70),
 		}
@@ -66,8 +66,8 @@
 		ctx.beginPath()
 
 		// Positie van de stam
-		ctx.moveTo(stam.x, canvasHeight - 10)
-		ctx.lineTo(stam.x, canvasHeight - stam.y)
+		ctx.moveTo(stam.x, canvas.height - 10)
+		ctx.lineTo(stam.x, canvas.height - stam.y)
 
 		// zet de kleur van de stam
 		ctx.strokeStyle = '#8a7362'
@@ -119,16 +119,16 @@
 			)
 
 			// takken aan de linkerkant
-			ctx.moveTo(startingPoint.x, canvasHeight - startingPoint.y)
-			ctx.lineTo(branchEndRight.x, canvasHeight - branchEndRight.y)
+			ctx.moveTo(startingPoint.x, canvas.height - startingPoint.y)
+			ctx.lineTo(branchEndRight.x, canvas.height - branchEndRight.y)
 
 			// takken in het midden
-			ctx.moveTo(startingPoint.x, canvasHeight - startingPoint.y)
-			ctx.lineTo(branchEndMiddle.x, canvasHeight - branchEndMiddle.y)
+			ctx.moveTo(startingPoint.x, canvas.height - startingPoint.y)
+			ctx.lineTo(branchEndMiddle.x, canvas.height - branchEndMiddle.y)
 
 			// takken aan de rechterkant
-			ctx.moveTo(startingPoint.x, canvasHeight - startingPoint.y)
-			ctx.lineTo(branchEndLeft.x, canvasHeight - branchEndLeft.y)
+			ctx.moveTo(startingPoint.x, canvas.height - startingPoint.y)
+			ctx.lineTo(branchEndLeft.x, canvas.height - branchEndLeft.y)
 
 			// de draaihoek van de takken berekenen
 			branchEndLeft.angle = startingPoint.angle + branchSplitDegrees
@@ -165,13 +165,13 @@
 	}
 </script>
 
-<canvas width="1000" height="1000" bind:this={canvas} />
+<canvas width="100%" height="1000" bind:this={canvas} />
 
 <style>
 	canvas {
 		position: relative;
-		max-width: 100rem;
-		max-height: 100rem;
+		max-width: 100vw;
+		max-height: 100vh;
 		object-fit: contain;
 		bottom: -30%;
 		left: 50%;
