@@ -1,20 +1,21 @@
 <script>
 	import { supabase } from '$lib/db'
+	import { persistStore } from '$lib/persistStore'
 
 	let submit
 
-	let firstName = '',
-		lastName = '',
-		mailAdress = '',
-		treeLocation = '41.40338, 2.17403',
-		treeMeaning = '',
-		treeReason = '',
-		treeAge = 0,
-		tips = '',
-		treeType = '',
-		keepMeUpdated = true,
-		photoEnvironment,
-		photoDuo
+	let firstName = persistStore('firstName', ''),
+		lastName = persistStore('lastName', ''),
+		mailAdress = persistStore('mailAdress', ''),
+		treeLocation = persistStore('treeLocation', '41.40338, 2.17403'),
+		treeMeaning = persistStore('treeMeaning', ''),
+		treeReason = persistStore('treeReason', ''),
+		treeAge = persistStore('tips', 0),
+		tips = persistStore('tips', ''),
+		treeType = persistStore('treeType', ''),
+		keepMeUpdated = persistStore('tips', false),
+		photoEnvironment = persistStore('photoEnvironment', ''),
+		photoDuo = persistStore('photoDuo', '')
 
 	let photoUploadProgress = 0,
 		photos = [],
@@ -25,15 +26,15 @@
 		const { data, error } = await fetch('/api/submitTree', {
 			method: 'POST',
 			body: JSON.stringify({
-				fullName: `${firstName} ${lastName}`,
-				mailAdress,
-				treeLocation,
-				treeMeaning,
-				treeReason,
-				treeAge,
-				tips,
-				treeType,
-				keepMeUpdated,
+				'fullName': `${$firstName} ${$lastName}`,
+				'mailAdress': $mailAdress,
+				'treeLocation': $treeLocation,
+				'treeMeaning': $treeMeaning,
+				'treeReason': $treeReason,
+				'treeAge': $treeAge,
+				'tips': $tips,
+				'treeType': $treeType,
+				'keepMeUpdated': $keepMeUpdated,
 			}),
 			headers: { 'content-type': 'application/json' },
 		}).then((res) => res.json())
@@ -47,7 +48,7 @@
 
 	async function sendImages(id) {
 		photoUploadProgress = 0
-		photos = [photoEnvironment[0], photoDuo[0]]
+		photos = [$photoEnvironment[0], $photoDuo[0]]
 		photos.forEach((photo, index) => {
 			const { data, error } = supabase.storage
 				.from('eenwoud-bucket')
@@ -58,7 +59,7 @@
 		})
 	}
 
-	let page = 1
+	let page = persistStore('page', 1)
 
 	function getFileData(event) {
 		const name = event.target.files[0].name
@@ -74,7 +75,7 @@
 	<slot />
 
 	<form on:submit|preventDefault={() => (submit = true)} method="post">
-		{#if page == 1}
+		{#if $page == 1}
 			<section id="part1">
 				<label for="firstname">Ik,</label>
 				<input
@@ -82,7 +83,7 @@
 					type="text"
 					name="firstname"
 					id="firstname"
-					bind:value={firstName}
+					bind:value={$firstName}
 					placeholder=" Voornaam"
 				/><span>,</span>
 
@@ -92,7 +93,7 @@
 					type="text"
 					name="lastname"
 					id="lastname"
-					bind:value={lastName}
+					bind:value={$lastName}
 					placeholder=" Achternaam"
 				/>
 				<p>draag mijn boom voor, zodat de nazaten kunnen opgroeien in Eenwoud.</p>
@@ -102,11 +103,11 @@
 					type="text"
 					name="treeReason"
 					id="treeReason"
-					bind:value={treeReason}
+					bind:value={$treeReason}
 					placeholder="Schrijf hier waarom je een boom wilt voordragen"
 				/>
 			</section>
-		{:else if page == 2}
+		{:else if $page == 2}
 			<section id="part2">
 				<label for="treeMeaning"> Deze boom heeft heel betekenis voor mij omdat</label>
 				<textarea
@@ -114,7 +115,7 @@
 					type="text"
 					name="treeMeaning"
 					id="treeMeaning"
-					bind:value={treeMeaning}
+					bind:value={$treeMeaning}
 					placeholder="Beschrijf waarom deze boom zo veel voor je betekent."
 				/>
 				<label for="treeType"> Wat voor soort boom is het? </label>
@@ -123,11 +124,11 @@
 					type="text"
 					name="treeType"
 					id="treeType"
-					bind:value={treeType}
+					bind:value={$treeType}
 					placeholder="Boomsoort"
 				/>
 			</section>
-		{:else if page == 3}
+		{:else if $page == 3}
 			<section id="part3">
 				<p>Hier zie je foto van de boom in zijn omgeving</p>
 				<label for="photoEnvironment" class="fotolabel">Klik hier om de foto te uploaden</label>
@@ -136,7 +137,7 @@
 					id="photoEnvironment"
 					name="photoEnvironment"
 					accept="image/png, image/jpeg"
-					bind:files={photoEnvironment}
+					bind:files={$photoEnvironment}
 					on:change={getFileData}
 				/>
 				<p>Ik heb ook nog een foto toegevoegd waar ik samen met de boom op de foto sta</p>
@@ -146,11 +147,11 @@
 					id="photoDuo"
 					name="photoDuo"
 					accept="image/png, image/jpeg"
-					bind:files={photoDuo}
+					bind:files={$photoDuo}
 					on:change={getFileData}
 				/>
 			</section>
-		{:else if page == 4}
+		{:else if $page == 4}
 			<section id="part4">
 				<label for="treeAge"
 					>Tot slot zal ik nog wat gegevens meesturen over de boom waar je miscchien nog wat mee kan
@@ -161,7 +162,7 @@
 					type="number"
 					name="treeAge"
 					id="treeAge"
-					bind:value={treeAge}
+					bind:value={$treeAge}
 					placeholder="Vul de leeftijd van de boom in"
 				/>
 				<label for="treeLocation"> De coordinaten van de boom zijn </label>
@@ -171,10 +172,10 @@
 					name="treeLocation"
 					id="treeLocation"
 					placeholder="52.132633.5.291266"
-					bind:value={treeLocation}
+					bind:value={$treeLocation}
 				/>
 			</section>
-		{:else if page == 5}
+		{:else if $page == 5}
 			<section id="part5">
 				<label for="email">Mocht je mij nog willen bereiken kun je me mailen naar</label>
 				<input
@@ -182,7 +183,7 @@
 					type="email"
 					name="email"
 					id="email"
-					bind:value={mailAdress}
+					bind:value={$mailAdress}
 					placeholder="Vul je emailadres in"
 				/>
 				<br /><br />
@@ -193,11 +194,11 @@
 					type="text"
 					name="tips"
 					id="tips"
-					bind:value={tips}
+					bind:value={$tips}
 					placeholder="Tips, suggesties, opmerkingen"
 				/>
 			</section>
-		{:else if page == 6}
+		{:else if $page == 6}
 			<section id="part6">
 				<label for="keepMeUpdated"
 					>Graag zou ik op de hoogte gehouden worden van de ontwikkelingen rondom Eenwoud</label
@@ -206,7 +207,7 @@
 					type="checkbox"
 					name="keepMeUpdated"
 					id="keepMeUpdated"
-					bind:checked={keepMeUpdated}
+					bind:checked={$keepMeUpdated}
 				/>
 				<span>Ja</span><br /><br />
 				{#if firstName && lastName && mailAdress && treeLocation && treeMeaning && treeReason && treeAge && treeType}
@@ -232,18 +233,18 @@
 				<pre>{error.message}</pre>
 			{/await}
 		{/if}
-		{#if page != 1}
+		{#if $page != 1}
 			<button
 				type="button"
 				on:click={() => {
-					page--
+					$page--
 				}}>Vorige</button
 			>{/if}
-		{#if page != 6}
+		{#if $page != 6}
 			<button
 				type="button"
 				on:click={() => {
-					page++
+					$page++
 				}}>Volgende</button
 			>{/if}
 		<img src="./resources/images/eenwoud-logo-stamp.svg" alt="Eenwoud Logo" />
